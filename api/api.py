@@ -46,9 +46,19 @@ def predict():
         predictionProbability = diabetesLoadedModel.predict_proba(sampleDataFeatures)
         res=predictionProbability[0][1]
         print(res)
-        return {
-            "res" : res
-        }
+        if res<=0.5:
+            return {
+                "res" : 'Non Diabetic'
+            }
+        elif 0.5>res>0.8:
+            return {
+                "res" : 'Pre Diabetic'
+            }
+        else:
+            return {
+                "res" : 'Diabetic'
+            }
+
 
     if request.method == 'GET':
         return {

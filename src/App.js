@@ -1,5 +1,14 @@
 import React, {useState, useEffect} from "react"; 
 import './App.css';
+import logo from './logo.svg';
+
+import Navbar from './components/pages/Navbar'
+import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
+import Home from './components/pages/homepage/Home'
+import Diagonstics from './components/pages/Diagnostics/Diagnostics';
+import Hgraph from './components/pages/HGraph/HGraph';
+import Register from './components/pages/Register/Register'
+import DiabetesForm from "./components/pages/Diabetes/DiabetesForm";
 
 function App() {
   const [initialData, setInitialData] = useState([{}])
@@ -11,26 +20,18 @@ function App() {
 
   return (
     <div className="App">
-      <h1> Hello - {initialData.title}</h1>
-      <form action='/predict' method='POST'>
-        <input class="form-input" type="text" name="pregnancies" placeholder="Number of Pregnancies eg. 0"></input>
-        <br />
-        <input class="form-input" type="text" name="glucose" placeholder="Glucose (mg/dL) eg. 80"></input>
-        <br />
-        <input class="form-input" type="text" name="bloodpressure" placeholder="Blood Pressure (mmHg) eg. 80"></input>
-        <br />
-        <input class="form-input" type="text" name="skinthickness" placeholder="Skin Thickness (mm) eg. 20"></input>
-        <br />
-        <input class="form-input" type="text" name="insulin" placeholder="Insulin Level (IU/mL) eg. 80"></input>
-        <br />
-        <input class="form-input" type="text" name="bmi" placeholder="Body Mass Index (kg/m²) eg. 23.1"></input>
-        <br />
-        <input class="form-input" type="text" name="dpf" placeholder="Diabetes Pedigree Function eg. 0.52"></input>
-        <br />
-        <input class="form-input" type="text" name="age" placeholder="Age (years) eg. 34"></input>
-        <br />
-        <input type="submit" class="my-cta-button" value="Predict"></input>
-      </form>
+      {/* <h1> Hello - {initialData.title}</h1> */}
+      
+      <Router>
+      <Navbar></Navbar>
+      <Switch>
+        <Route path='/' exact component={Home}/>
+        <Route path='/Diagnostics' component={Diagonstics} />
+        <Route path='/diabetes' component={DiabetesForm}/> 
+        <Route path='/HGraph' component={Hgraph} />
+        <Route path='/signup' component={Register}/>
+      </Switch>
+       </Router>
       {/* <h1>
         {initialData.res}
       </h1> */}
