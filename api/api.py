@@ -1,4 +1,4 @@
-from flask import Flask,render_template, request
+from flask import Flask,render_template, request, redirect
 import pickle,gzip
 import numpy as np
 import joblib
@@ -46,24 +46,27 @@ def predict():
         predictionProbability = diabetesLoadedModel.predict_proba(sampleDataFeatures)
         res=predictionProbability[0][1]
         print(res)
-        if res<=0.5:
-            return {
-                "res" : 'Non Diabetic'
-            }
-        elif 0.5>res>0.8:
-            return {
-                "res" : 'Pre Diabetic'
-            }
-        else:
-            return {
-                "res" : 'Diabetic'
-            }
+        # if res<=0.5:
+        #     return {
+        #         "res" : 'Non Diabetic'
+        #     }
+        # elif 0.5>res>0.8:
+        #     return {
+        #         "res" : 'Pre Diabetic'
+        #     }
+        # else:
+        #     return {
+        #         "res" : 'Diabetic'
+        #     }
+       
+        print(request.url)
+        return render_template('prediction.html', res=res)
 
 
-    if request.method == 'GET':
-        return {
-            "res" : 0.66
-        }
+    # if request.method == 'GET':
+    #     return {
+    #         "res" : 0.66
+    #     }
         
 
 if __name__ == "__main__":

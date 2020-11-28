@@ -1,36 +1,45 @@
-import React from 'react'
+import React, { Component } from 'react'
 import '../../pages/Register/style.css'
 
-function DiabetesForm() {
-    return (
-    //     <div>
-    //         <form action='/predict' method='POST'>
-    //     <input class="form-input" type="text" name="pregnancies" placeholder="Number of Pregnancies eg. 0"></input>
-    //     <br />
-    //     <input class="form-input" type="text" name="glucose" placeholder="Glucose (mg/dL) eg. 80"></input>
-    //     <br />
-    //     <input class="form-input" type="text" name="bloodpressure" placeholder="Blood Pressure (mmHg) eg. 80"></input>
-    //     <br />
-    //     <input class="form-input" type="text" name="skinthickness" placeholder="Skin Thickness (mm) eg. 20"></input>
-    //     <br />
-    //     <input class="form-input" type="text" name="insulin" placeholder="Insulin Level (IU/mL) eg. 80"></input>
-    //     <br />
-    //     <input class="form-input" type="text" name="bmi" placeholder="Body Mass Index (kg/m²) eg. 23.1"></input>
-    //     <br />
-    //     <input class="form-input" type="text" name="dpf" placeholder="Diabetes Pedigree Function eg. 0.52"></input>
-    //     <br />
-    //     <input class="form-input" type="text" name="age" placeholder="Age (years) eg. 34"></input>
-    //     <br />
-    //     <input type="submit" class="my-cta-button" value="Predict"></input>
-    //   </form>
+export class DiabetesForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            result: ''
+        };
     
-            
+        this.handleSubmit = this.handleSubmit.bind(this);
+      }
+      handleSubmit(event) {
+        console.log("making request")
+        fetch("/predict", {
+            method:"POST",
+            cache: "no-cache",
+            headers:{
+                "content_type":"application/json",
+            }
+            // ,
+            // body:JSON.stringify(this.state.result)
+            }
+        ).then(response => {
+        return response.json()
+      })
+      .then(json => {
+    
+      this.setState({result: json[0]})
+      console.log(this.state.result)
+      })
+      }
+    render() {
+        return (
+            <div>
+                    
              
                <div className='inner-container'>
-<form action='/predict' method='POST'>
+<form action='/predict' method='POST' onSubmit={this.handleSubmit}>
       
                <div className='header'>
-                    Login
+                    Login {this.state.result}
                 </div>
                 <div className='box'>
                 <div className='input-group'>
@@ -88,9 +97,10 @@ function DiabetesForm() {
 
 </form>
                       </div>
-                     
-    )
+                                 
+            </div>
+        )
+    }
 }
-
 
 export default DiabetesForm

@@ -1,0 +1,10 @@
+<html>
+<h1>{{res}}</h1>
+{% if res<=0.5 %}
+    <p>Non-diabetic</p>
+{% elif res>0.5 and res<0.8 %}
+    <p>Pre-diabetic</p>
+{%else%}
+    <p>diabetic</p>
+{% endif %}
+</html>
