@@ -1,4 +1,11 @@
-from flask import Flask
+from flask import Flask,render_template, request
+import pickle,gzip
+import numpy as np
+import joblib
+
+filename = 'diabeteseModel.pkl'
+# classifier = pickle.load(open(filename, 'rb'))
+diabetesLoadedModel, means, stds = joblib.load('diabeteseModel.pkl')
 
 app = Flask(__name__)
 
@@ -17,6 +24,37 @@ def api():
         'completed':False,
     }
 
+
+@app.route('/predict', methods=['POST','GET'])
+def predict():
+    if request.method == 'POST':
+        preg = int(request.form['pregnancies'])
+        glucose = int(request.form['glucose'])
+        bp = int(request.form['bloodpressure'])
+        st = int(request.form['skinthickness'])
+        insulin = int(request.form['insulin'])
+        bmi = float(request.form['bmi'])
+        dpf = float(request.form['dpf'])
+        age = int(request.form['age'])
+        
+        data = np.array([[preg, glucose, bp, st, insulin, bmi, dpf, age]])
+        # my_prediction = classifier.predict(data)
+        # m=np.asarray([ 5.46571335e-18, -1.50307117e-16 , 3.22477088e-16 ,-2.39124959e-17,
+        #   3.82599935e-17 , 4.91914202e-17,  1.50307117e-16 , 1.17512837e-16])
+        # s=np.asarray([1, 1, 1, 1, 1, 1, 1, 1])
+        sampleDataFeatures = (data - means)/stds
+        predictionProbability = diabetesLoadedModel.predict_proba(sampleDataFeatures)
+        res=predictionProbability[0][1]
+        print(res)
+        return {
+            "res" : res
+        }
+
+    if request.method == 'GET':
+        return {
+            "res" : 0.66
+        }
+        
 
 if __name__ == "__main__":
     app.run(debug=True)
