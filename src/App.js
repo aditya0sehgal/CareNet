@@ -23,7 +23,7 @@ function App() {
       {/* <h1> Hello - {initialData.title}</h1> */}
       
       <Router>
-      {/* <Navbar></Navbar> */}
+      <Navbar></Navbar>
       <Switch>
         <Route path='/' exact component={Home}/>
         <Route path='/Diagnostics' component={Diagonstics} />

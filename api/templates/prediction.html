@@ -3,7 +3,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
-    <div class="container mt-3">
+        <div class="container mt-3">
+        <center><h1>Entered Data</h1></center>
         <table class="table table-hover table-bordered"">
             <thead class="thead-dark">
                 <tr>
@@ -46,12 +47,11 @@
                 </tr>       
             </tbody>
         </table>
-    </div>
     <div id="container" style="margin-top: 30px; margin-bottom: 20px; padding: 10px;" > 
         <canvas id="chart" height="350" width="200"></canvas>
     </div>
     <center>
-        <h1 id="prediction">Score : {{(res*100)//1}}</h1>
+        <h1 id="prediction">Prediction Score : {{(res*100)//1}}</h1>
 
         {% if res<=0.5 %}
             <div class="alert alert-success" role="alert">
@@ -66,7 +66,14 @@
                 Currently you are : Diabetic
             </div>
         {% endif %}
+
+        <!-- <form method="post" action="/recommend"> -->
+            <button type="submit" class="btn btn-dark mb-5"><a href="/HGraph" style="color: whitesmoke ;text-decoration: none;"> Get personalised recommendation </a></button>
+        <!-- </form> -->
+
     </center>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script>

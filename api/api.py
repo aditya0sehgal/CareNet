@@ -1,4 +1,4 @@
-from flask import Flask,render_template, request, redirect
+from flask import Flask,render_template, request, redirect,url_for
 import pickle,gzip
 import numpy as np
 import joblib
@@ -23,6 +23,11 @@ def api():
         'title':'Flask app',
         'completed':False,
     }
+
+# @app.route('/recommend', methods=['POST'])
+# def recommend():
+#         print(url_for("static", filename="index.css"))
+#         return redirect(url_for("static", filename="index.css"))
 
 
 @app.route('/predict', methods=['POST','GET'])
