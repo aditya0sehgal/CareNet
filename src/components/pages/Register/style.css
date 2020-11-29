@@ -8,12 +8,15 @@
 
 
 .root-container {
-    width: 100%;
-    height: 100%;
+    /* width: 100%;*/
+    height: 100%; 
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-image:url("../Diabetes/diaimg");
+    background-repeat: no-repeat;
+    background-size: cover;
     
 }
 
@@ -49,15 +52,20 @@
 .box-container {
     display: flex;
     flex-direction: column;
-    max-width: 24em;
-    min-width: 21em;
+    max-width: 20em;
+    min-width: 20em;
     box-shadow: 0px 0px 20px 0px rgba(15, 15, 15, 0.2);
     border-radius: 6px;
-    padding: 24px;
+    padding: 15px;
+    align-items: center;
+    background-color: white;
+    margin-bottom: 30px
+    ;
 }
 
 .inner-container {
     transition: visibility 0.2s ease-out;
+    align-items: center;
 }
 
 .inner-container.show {
@@ -73,7 +81,8 @@
     /* margin-right: 35px; */
     font-family: Ozxgen, sans-serif;
     font-size: 22px;
-    border-bottom: 2px solid #70a1ff;
+    border-bottom: 2px solid green;
+    color:black;
 }
 
 .box {
@@ -92,7 +101,7 @@
 
 .login-label {
     font-family: Oxygen, sans-serif;
-    font-size: 20px;
+    font-size: 13px;
     font-weight: 600;
     padding-left: 5px;
 }
@@ -100,12 +109,13 @@
 
 .login-input {
     height: 10px;
+    width: auto;
     border-radius: 3px;
-    border: 1px solid #70a1ff;
+    border: 1px solid green;
     transition: border 0.4s ease-out;
-    padding: 13px;
+    padding: 10px;
     font-family: Oxygen, sans-serif;
-    font-size: 19px;
+    font-size: 15px;
     color: #3e3e42;
     background: rgba(15, 15, 15, 0.01);
 }

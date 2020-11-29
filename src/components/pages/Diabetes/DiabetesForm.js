@@ -32,15 +32,17 @@ export class DiabetesForm extends Component {
       }
     render() {
         return (
-            <div>
+            <div className='root-container' style={{}} >
                     
              
-               <div className='inner-container'>
+                    <div className='header'>
+                    Diabetes Predictor{this.state.result}
+                </div>    
+                <div className='box-container' >
 <form action='/predict' method='POST' onSubmit={this.handleSubmit}>
       
-               <div className='header'>
-                    Login {this.state.result}
-                </div>
+              
+               
                 <div className='box'>
                 <div className='input-group'>
                     <label htmlFor='Pregnancies'>
@@ -97,8 +99,9 @@ export class DiabetesForm extends Component {
 
 </form>
                       </div>
+                      </div>
                                  
-            </div>
+           
         )
     }
 }
