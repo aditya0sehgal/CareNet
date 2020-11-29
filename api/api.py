@@ -36,7 +36,7 @@ def predict():
         bmi = float(request.form['bmi'])
         dpf = float(request.form['dpf'])
         age = int(request.form['age'])
-        
+       
         data = np.array([[preg, glucose, bp, st, insulin, bmi, dpf, age]])
         # my_prediction = classifier.predict(data)
         # m=np.asarray([ 5.46571335e-18, -1.50307117e-16 , 3.22477088e-16 ,-2.39124959e-17,
@@ -59,8 +59,17 @@ def predict():
         #         "res" : 'Diabetic'
         #     }
        
-        print(request.url)
-        return render_template('prediction.html', res=res)
+        print(request.url,request.form)
+        return render_template('prediction.html', formdata={ 
+                    "preg" : int(request.form['pregnancies']),
+                    "glucose" : int(request.form['glucose']),
+                    "bp" : int(request.form['bloodpressure']),
+                    "st" : int(request.form['skinthickness']),
+                    "insulin" : int(request.form['insulin']),
+                    "bmi" : float(request.form['bmi']),
+                    "dpf" : float(request.form['dpf']),
+                    "age" : int(request.form['age'])
+                    }, res=res)
 
 
     # if request.method == 'GET':

@@ -42,6 +42,7 @@ export class DiabetesForm extends Component {
                     Login {this.state.result}
                 </div>
                 <div className='box'>
+                
                 <div className='input-group'>
                     <label htmlFor='Pregnancies'>
                             Pregnancies

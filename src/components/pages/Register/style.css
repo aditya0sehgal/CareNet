@@ -40,6 +40,9 @@
     cursor: pointer;
 }
 
+/* .container{
+    padding: 15%;
+} */
 
 .selected-controller {
     transition: border 0.5s ease-out;
