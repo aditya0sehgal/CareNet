@@ -20,18 +20,18 @@ function Diagnostic() {
                   <FaSyringe />
                 </div>
                 <h3>Diabetes Test</h3>
-                <p>Requiremnts</p>
+                <p>Requirements</p>
                 <ul >
                   <li>Bmi Report</li>
-                  <li>Glucose report</li>
-                  <li>weight</li>
+                  <li>Glucose Report</li>
+                  <li>Weight</li>
                 </ul>
                 <Button buttonSize='btn--wide' buttonColor='primary'>
                   Check for Diabetes.
                 </Button>
               </div>
             </Link>
-            <Link to='/' className='Diagnostic__container-card'>
+            {/* <Link to='/' className='Diagnostic__container-card'>
               <div className='Diagnostic__container-cardInfo'>
                 <div className='icon'>
                   <FaXRay />
@@ -47,7 +47,7 @@ function Diagnostic() {
                  Check for pnemonia.
                 </Button>
               </div>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
