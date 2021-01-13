@@ -3,7 +3,7 @@ import pickle,gzip
 import numpy as np
 import joblib
 
-filename = 'diabeteseModel.pkl'
+filename = 'diabetesModel.pkl'
 # classifier = pickle.load(open(filename, 'rb'))
 diabetesLoadedModel, means, stds = joblib.load('diabeteseModel.pkl')
 
