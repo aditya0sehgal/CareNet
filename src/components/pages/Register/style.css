@@ -112,7 +112,7 @@
 
 .login-input {
     height: 10px;
-    width: auto;
+    width: 250px;
     border-radius: 3px;
     border: 1px solid green;
     transition: border 0.4s ease-out;

@@ -97,9 +97,104 @@ class Hgraph extends React.Component {
 
     return (
       <div className="App">
+        
+      <div className="root-container" style={{justifyContent: "center"}} >
+                       
+          <div className='header'>
+                    Health Score{this.state.result}
+          </div>    
+          <div className='box-container' >
+            <form action='/predict' method='POST' onSubmit={this.handleSubmit}>
+  
+                <div className='box'>
+                
+                  <div className='input-group'>
+                      <label htmlFor='Total Cholesterol'>
+                      Total Cholesterol
+                          </label>
+                      <input type='text' name='cholesterol' className='login-input' placeholder='Enter the value in mg/dl.'/>
+                  </div>
+                   
+                  <div className='input-group'>
+                    <label htmlFor='glucose'>
+                            Glucose
+                        </label>
+                    <input type='text' name='glucose' className='login-input' placeholder='Enter the value in mg/dl.'/>
+                  </div>
 
+                  <div className='input-group'>
+                    <label htmlFor='Systolic Blood Pressure'>
+                        Systolic Blood Pressure
+                        </label>
+                    <input type='text' name='sbloodpressure' className='login-input' placeholder='Enter the value in mm/Hg.'/>
+                  </div>
+                  
+                  <div className='input-group'>
+                    <label htmlFor='Diastolic Blood Pressure'>
+                    Diastolic Blood Pressure
+                        </label>
+                    <input type='text' name='dbloodpressure' className='login-input' placeholder='Enter the value in mm/Hg.' />
+                  </div>
+                    
+                  <div className='input-group'>
+                    <label htmlFor='Alcohol Use'>
+                    Alcohol Use
+                        </label>
+                    <input type='text' name='alcohol' className='login-input' placeholder='Enter the number of drinks/week.'/>
+                  </div>
+
+                  <div className='input-group'>
+                    <label htmlFor='Nicotine'>
+                    Nicotine Use
+                        </label>
+                    <input type='text' name='nicotine' className='login-input' placeholder='Enter the number of nicotine/day.'/>
+                  </div>
+                  
+                  <div className='input-group'>
+                    <label htmlFor='Waist'>
+                    Waist Circumference
+                        </label>
+                    <input type='text' name='waist' className='login-input' placeholder='Enter the value in inches.'/>
+                  </div>
+                  
+                  <div className='input-group'>
+                    <label htmlFor='Weight'>
+                      Weight
+                        </label>
+                    <input type='text' name='weight' className='login-input' placeholder='Enter the value in lbs.'/>
+                  </div>
+
+                  <div className='input-group'>
+                    <label htmlFor='Exercise'>
+                      Exercise
+                        </label>
+                    <input type='text' name='exercise' className='login-input' placeholder='Enter the value in hours/week.'/>
+                  </div>
+
+                  <div className='input-group'>
+                    <label htmlFor='Sleep'>
+                      Sleep
+                        </label>
+                    <input type='text' name='sleep' className='login-input' placeholder='Enter the value in hours/night.'/>
+                  </div>
+
+                  <div className='input-group'>
+                    <label htmlFor='Weight'>
+                      Weight
+                        </label>
+                    <input type='text' name='weight' className='login-input' placeholder='Enter the value in lbs.'/>
+                  </div>
+
+                  <input type='submit' value ='Get Health Score' className='login-btn'></input>
+                </div>
+
+
+            </form>
+        </div>
+        </div> 
+        
         <div className="card" 
-        style={{ top: this.state.historyOpen ? '55vh' : '105vh' }} 
+        style={{ top: this.state.historyOpen ? '170vh' : '205vh' }} 
         ref={this.card}>
               <div>
                   <p>{ this.state.historyData.label }</p>
@@ -126,80 +221,9 @@ class Hgraph extends React.Component {
           />
         </div>
         
-        <div className='root-container' style={{}} >
-                       
-          <div className='header'>
-                    Diabetes Predictor{this.state.result}
-          </div>    
-          <div className='box-container' >
-            <form action='/predict' method='POST' onSubmit={this.handleSubmit}>
-  
-                <div className='box'>
-                
-                  <div className='input-group'>
-                      <label htmlFor='Pregnancies'>
-                              Pregnancies
-                          </label>
-                      <input type='text' name='pregnancies' className='login-input' />
-                  </div>
-                   
-                  <div className='input-group'>
-                    <label htmlFor='glucose'>
-                            Glucose
-                        </label>
-                    <input type='text' name='glucose' className='login-input' />
-                  </div>
-
-                  <div className='input-group'>
-                    <label htmlFor='bloodpressure'>
-                            Blood Pressure
-                        </label>
-                    <input type='text' name='bloodpressure' className='login-input' />
-                  </div>
-                  
-                  <div className='input-group'>
-                    <label htmlFor='skinthickness'>
-                            Skin Thickness
-                        </label>
-                    <input type='text' name='skinthickness' className='login-input' />
-                  </div>
-                    
-                  <div className='input-group'>
-                    <label htmlFor='insulin'>
-                            Insulin Level
-                        </label>
-                    <input type='text' name='insulin' className='login-input' />
-                  </div>
-
-                  <div className='input-group'>
-                    <label htmlFor='bmi'>
-                            Body Mass Index
-                        </label>
-                    <input type='text' name='bmi' className='login-input' />
-                  </div>
-                  
-                  <div className='input-group'>
-                    <label htmlFor='dpf'>
-                            Diabetes Pedigree Function
-                        </label>
-                    <input type='text' name='dpf' className='login-input' />
-                  </div>
-                  
-                  <div className='input-group'>
-                    <label htmlFor='age'>
-                            Age
-                        </label>
-                    <input type='text' name='age' className='login-input' />
-                  </div>
-
-                  <input type='submit' value ='Predict' className='login-btn'></input>
-                </div>
-
-
-            </form>
-        </div>
         
-      </div>
+
+     
                                  
            
 
