@@ -46,7 +46,7 @@ export class DiabetesForm extends Component {
                 <div className='box'>
                 
                 <div className='input-group'>
-                    <label htmlFor='Pregnancies'>
+                    <label htmlFor='pregnancies'>
                             Pregnancies
                         </label>
                     <input type='text' name='pregnancies' className='login-input' />

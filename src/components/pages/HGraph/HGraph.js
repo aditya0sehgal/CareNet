@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import HGraph, {
-  History,
   hGraphConvert,
   calculateHealthScore
 } from '../../../../node_modules/hgraph-react'; // symlinked with 'yarn link' from project root.
 
 import data2017 from "../../data.json";
-
 import '../../HGraph.css';
 
 class Hgraph extends React.Component {
@@ -14,8 +12,7 @@ class Hgraph extends React.Component {
     super(props);
 
     const converted2017 = this.convertDataSet(data2017);
-
-    // const converted2018 = this.convertDataSet(data2018);
+    console.log(data2017);
     console.log(converted2017);
     const yearData = [
       {
@@ -32,8 +29,10 @@ class Hgraph extends React.Component {
       data: yearData[0],
       historyOpen: false,
       historyData: yearData[0].data[0],
+      formsubmit: false
     }
-    console.log(this.state.historyData);
+
+    console.log(this.state.data);
     this.card = React.createRef();
   }
 
@@ -51,7 +50,7 @@ class Hgraph extends React.Component {
         })
       }
       converted.value = d.value;
-      console.log(converted);
+      // console.log(converted);
       return converted;
     });
   }
@@ -90,29 +89,72 @@ class Hgraph extends React.Component {
     }
   }
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const value = Object.fromEntries(data.entries());
+    console.log( JSON.stringify(value) );  // View entered values from the form.
+    console.log( value );  // View entered values from the form.
+
+    // To generate a json file having data from the form to use on the HGraph component.
+    let healthdataarray = []
+    for (var key in value) {
+    if (value.hasOwnProperty(key)) {
+      var val = value[key];
+
+      let current_obj = {
+        "metric": key,
+        "value": val,
+      }
+      healthdataarray.push(current_obj)
+      console.log(current_obj ,key, val);
+    }
+  }
+    console.log(healthdataarray);  // replacement for data.json
+  
+    // Change the form submitted value to true to display the HGraph.
+    this.setState({formsubmit: true}) 
+    console.log(this.state);
+
+    // Send the health graph form data to the server.
+    fetch('healthscore', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(value),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+
+  }
+
   render() {
     const sizeBasedOnWindow = this.state.windowWidth / 2;
     const size = sizeBasedOnWindow > 450 ? 450 : sizeBasedOnWindow;
-    const historySize = this.card.current ? this.card.current.clientWidth - 20 : 0;
+    // const historySize = this.card.current ? this.card.current.clientWidth - 20 : 0;
+
 
     return (
       <div className="App">
-        
-      <div className="root-container" style={{justifyContent: "center"}} >
+      <div className="root-container" style={{ height: this.state.formsubmit ? '270vh' :'150vh' , backgroundImage:"url('healthgraph.jpg')"}} >
                        
-          <div className='header'>
-                    Health Score{this.state.result}
-          </div>    
+          <h1 style={{color:'white'}}>Health Score</h1>
           <div className='box-container' >
-            <form action='/predict' method='POST' onSubmit={this.handleSubmit}>
+            {/* <form action='/healthscore' method='POST' onSubmit={this.handleClick}> */}
+            <form onSubmit={this.handleSubmit}>
   
                 <div className='box'>
-                
                   <div className='input-group'>
-                      <label htmlFor='Total Cholesterol'>
+                      <label htmlFor='totalCholesterol'>
                       Total Cholesterol
                           </label>
-                      <input type='text' name='cholesterol' className='login-input' placeholder='Enter the value in mg/dl.'/>
+                      <input type='text' name='totalCholesterol' className='login-input' placeholder='Enter the value in mg/dl.'/>
                   </div>
                    
                   <div className='input-group'>
@@ -123,87 +165,74 @@ class Hgraph extends React.Component {
                   </div>
 
                   <div className='input-group'>
-                    <label htmlFor='Systolic Blood Pressure'>
+                    <label htmlFor='bloodPressureSystolic'>
                         Systolic Blood Pressure
                         </label>
-                    <input type='text' name='sbloodpressure' className='login-input' placeholder='Enter the value in mm/Hg.'/>
+                    <input type='text' name='bloodPressureSystolic' className='login-input' placeholder='Enter the value in mm/Hg.'/>
                   </div>
                   
                   <div className='input-group'>
-                    <label htmlFor='Diastolic Blood Pressure'>
+                    <label htmlFor='bloodPressureDiastolic'>
                     Diastolic Blood Pressure
                         </label>
-                    <input type='text' name='dbloodpressure' className='login-input' placeholder='Enter the value in mm/Hg.' />
+                    <input type='text' name='bloodPressureDiastolic' className='login-input' placeholder='Enter the value in mm/Hg.' />
                   </div>
                     
                   <div className='input-group'>
-                    <label htmlFor='Alcohol Use'>
+                    <label htmlFor='alcoholUse'>
                     Alcohol Use
                         </label>
-                    <input type='text' name='alcohol' className='login-input' placeholder='Enter the number of drinks/week.'/>
+                    <input type='text' name='alcoholUse' className='login-input' placeholder='Enter the number of drinks/week.'/>
                   </div>
 
                   <div className='input-group'>
-                    <label htmlFor='Nicotine'>
+                    <label htmlFor='nicotineUse'>
                     Nicotine Use
                         </label>
-                    <input type='text' name='nicotine' className='login-input' placeholder='Enter the number of nicotine/day.'/>
+                    <input type='text' name='nicotineUse' className='login-input' placeholder='Enter the number of nicotine/day.'/>
                   </div>
                   
                   <div className='input-group'>
-                    <label htmlFor='Waist'>
+                    <label htmlFor='waistCircumference'>
                     Waist Circumference
                         </label>
-                    <input type='text' name='waist' className='login-input' placeholder='Enter the value in inches.'/>
+                    <input type='text' name='waistCircumference' className='login-input' placeholder='Enter the value in inches.'/>
                   </div>
-                  
+        
                   <div className='input-group'>
-                    <label htmlFor='Weight'>
-                      Weight
-                        </label>
-                    <input type='text' name='weight' className='login-input' placeholder='Enter the value in lbs.'/>
-                  </div>
-
-                  <div className='input-group'>
-                    <label htmlFor='Exercise'>
+                    <label htmlFor='exercise'>
                       Exercise
                         </label>
                     <input type='text' name='exercise' className='login-input' placeholder='Enter the value in hours/week.'/>
                   </div>
 
                   <div className='input-group'>
-                    <label htmlFor='Sleep'>
+                    <label htmlFor='sleep'>
                       Sleep
                         </label>
                     <input type='text' name='sleep' className='login-input' placeholder='Enter the value in hours/night.'/>
                   </div>
 
                   <div className='input-group'>
-                    <label htmlFor='Weight'>
+                    <label htmlFor='weight'>
                       Weight
                         </label>
                     <input type='text' name='weight' className='login-input' placeholder='Enter the value in lbs.'/>
                   </div>
 
-                  <input type='submit' value ='Get Health Score' className='login-btn'></input>
+                  <button className='login-btn'>Get Health Score</button>
                 </div>
-
-
             </form>
         </div>
-        </div> 
-        
+        <h2 style={{color:'white'}}>Find the range of values here.</h2>
+        {this.state.formsubmit === true && 
+        <div>
         <div className="card" 
-        style={{ top: this.state.historyOpen ? '170vh' : '205vh' }} 
+        style={{ top: this.state.historyOpen ? '210vh' : '250vh' }} 
         ref={this.card}>
               <div>
                   <p>{ this.state.historyData.label }</p>
                   <p>{ this.state.historyData.value } { this.state.historyData.unitLabel }</p>
-                  {/* <History
-                    width={ historySize }
-                    height={ historySize > 500 ? historySize / 4 : historySize / 2 }
-                    data={this.state.historyData}
-                  /> */}
               </div>
         </div>
 
@@ -213,20 +242,20 @@ class Hgraph extends React.Component {
             score={ this.state.data.score }
             width={ size }
             height={ size }
-            fontSize={ size < 300 ? 12 : 16 }
+            fontColor={'rgb(255, 255, 255)'}
+            scoreFontColor={'rgb(255, 255, 255)'}
+            fontSize={ size < 300 ? 16 : 19 }
             pointRadius={ size < 300 ? 5 : 10 }
             scoreFontSize={ size < 300 ? 50 : 120 }
+            // onPointClick={false}
+            // zoomOnPointClick={false}
             onPointClick={this.handlePointClick}
             zoomOnPointClick={true}
           />
         </div>
-        
-        
-
-     
-                                 
-           
-
+        </div>
+        }
+        </div>
       </div>
 
 

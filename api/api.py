@@ -5,7 +5,7 @@ import joblib
 
 filename = 'diabetesModel.pkl'
 # classifier = pickle.load(open(filename, 'rb'))
-diabetesLoadedModel, means, stds = joblib.load('diabeteseModel.pkl')
+diabetesLoadedModel, means, stds = joblib.load('diabetesModel.pkl')
 
 app = Flask(__name__)
 
@@ -81,6 +81,12 @@ def predict():
     #     return {
     #         "res" : 0.66
     #     }
+
+@app.route('/healthscore', methods=['POST'])
+def healthscore():
+    if request.method == 'POST':
+        print(request.url,'\nNow the data follows',request.json)
+        return ''
         
 
 if __name__ == "__main__":
