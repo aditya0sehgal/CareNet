@@ -6,6 +6,7 @@ import HGraph, {
 
 import data2017 from "../../data.json";
 import '../../HGraph.css';
+import { Button, UncontrolledPopover, PopoverHeader, PopoverBody, Table  } from 'reactstrap';
 
 class Hgraph extends React.Component {
   constructor(props) {
@@ -144,7 +145,42 @@ class Hgraph extends React.Component {
       <div className="App">
       <div className="root-container" style={{ height: this.state.formsubmit ? '270vh' :'150vh' , backgroundImage:"url('healthgraph.jpg')"}} >
                        
-          <h1 style={{color:'white'}}>Health Score</h1>
+          <h1 style={{color:'white'}}>
+            Health Score 
+          </h1>
+            
+          <UncontrolledPopover trigger="focus" placement="right" target="PopoverFocus">
+            <PopoverHeader>Healthy range values for each parameter.</PopoverHeader>
+            <PopoverBody>
+              <Table bordered>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </PopoverBody>
+          </UncontrolledPopover>
+          {/* <Button color="primary">hello</Button> */}
           <div className='box-container' >
             {/* <form action='/healthscore' method='POST' onSubmit={this.handleClick}> */}
             <form onSubmit={this.handleSubmit}>
@@ -224,7 +260,12 @@ class Hgraph extends React.Component {
                 </div>
             </form>
         </div>
-        <h2 style={{color:'white'}}>Find the range of values here.</h2>
+        <h3>
+        <Button id="PopoverFocus" color='primary' style={{borderRadius:'30px'}} type="button">
+          Healthy Range Values
+        {/* <i style={{color:'whitesmoke'}} class="fa fa-info"></i>  */}
+        </Button> 
+        </h3> 
         {this.state.formsubmit === true && 
         <div>
         <div className="card" 

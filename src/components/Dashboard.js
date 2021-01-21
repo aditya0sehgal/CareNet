@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button} from './Button'
+import { Button } from 'reactstrap';
 import {Link} from 'react-router-dom'
 import './dashboard.css'
 function Dashboard(
@@ -9,7 +9,8 @@ function Dashboard(
     return (
         <>
         <div
-          className={lightBg ? 'home__hero-section' : 'home__hero-section darkBg'}
+          // className={lightBg ? 'home__hero-section' : 'home__hero-section darkBg'}
+          className={'home__hero-section'}
         >
           <div className='container'>
             <div
@@ -22,20 +23,17 @@ function Dashboard(
               <div className='col'>
                 <div className='home__hero-text-wrapper'>
                   <div className='top-line'>{topLine}</div>
-                  <h1 className={lightText ? 'heading' : 'heading dark'}>
+                  <h1 className={'heading dark'}>
                     {headline}
                   </h1>
                   <p
-                    className={
-                      lightTextDesc
-                        ? 'home__hero-subtitle'
-                        : 'home__hero-subtitle dark'
+                    className={'home__hero-subtitle dark'
                     }
                   >
                     {description}
                   </p>
                   <Link to={linksto}>
-                    <Button buttonSize='btn--wide' buttonColor='blue'>
+                    <Button color="primary">
                       {buttonLabel}
                     </Button>
                   </Link>
