@@ -31,23 +31,27 @@ function Diagnostic() {
                 </Button>
               </div>
             </Link>
-            {/* <Link to='/' className='Diagnostic__container-card'>
+            
+            <Link to='/pneumonia' className='Diagnostic__container-card'>
               <div className='Diagnostic__container-cardInfo'>
                 <div className='icon'>
                   <FaXRay />
                 </div>
-                <h3>Pnemonia Test</h3>
+                <h3>Pneumonia Test</h3>
                 
                 <p>Requirements</p>
                 <ul>
                   <li>Xray of lungs</li>
-                  <li>Oxygen level report</li>
+                  {/* <li>Oxygen level report</li> */}
                 </ul>
+              
                 <Button buttonSize='btn--wide' buttonColor='blue'>
-                 Check for pnemonia.
+              
+                 Check for Pneumonia.
                 </Button>
+              
               </div>
-            </Link> */}
+            </Link>
           </div>
         </div>
       </div>

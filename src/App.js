@@ -9,6 +9,7 @@ import Diagonstics from './components/pages/Diagnostics/Diagnostics';
 import Hgraph from './components/pages/HGraph/HGraph';
 import Register from './components/pages/Register/Register'
 import DiabetesForm from "./components/pages/Diabetes/DiabetesForm";
+import Pneumonia from "./components/pages/Pneumonia/Pneumonia";
 
 function App() {
   const [initialData, setInitialData] = useState([{}])
@@ -28,6 +29,7 @@ function App() {
         <Route path='/' exact component={Home}/>
         <Route path='/Diagnostics' component={Diagonstics} />
         <Route path='/diabetes' component={DiabetesForm}/> 
+        <Route path='/pneumonia' component={Pneumonia}/> 
         <Route path='/HGraph' component={Hgraph} />
         <Route path='/signup' component={Register}/>
       </Switch>

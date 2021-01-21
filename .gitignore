@@ -24,4 +24,5 @@ yarn-error.log*
 
 /api/__pycache__/
 /api/env/
-/.eslintcache
+.eslintcache
+.debug.log

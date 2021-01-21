@@ -97,7 +97,6 @@ export class DiabetesForm extends Component {
 <input type='submit' value ='Predict' className='login-btn'></input>
 </div>
 
-
 </form>
                       </div>
                       </div>
