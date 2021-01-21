@@ -29,7 +29,7 @@ logger = logging.getLogger('HELLO WORLD')
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 #Pneumonia Model
-MODEL_PATH = '91.h5'
+MODEL_PATH = 'pneumonia.h5'
 model = load_model(MODEL_PATH)
 filename = 'diabetesModel.pkl'
 # classifier = pickle.load(open(filename, 'rb'))
