@@ -21,10 +21,10 @@ from werkzeug.utils import secure_filename
 
 
 from flask_cors import CORS
-import logging
+# import logging
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger('HELLO WORLD')
+# logging.basicConfig(level=logging.INFO)
+# logger = logging.getLogger('HELLO WORLD')
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
