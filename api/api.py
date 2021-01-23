@@ -13,6 +13,7 @@ import re
 import numpy as np
 
 # Keras
+import tensorflow as tf
 from keras.applications.imagenet_utils import preprocess_input, decode_predictions
 from tensorflow.keras.models import load_model
 from keras.preprocessing import image
@@ -53,10 +54,14 @@ def model_predict(img_path, model):
 
 @app.route('/pneumonia-predict', methods=['POST'])
 def fileUpload():
-    target = os.path.join(app.config['UPLOAD_FOLDER'], '')
+    print('HI', os.path, os.getcwd())
+    
+    # target = os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER'])
+    target = os.getcwd()+"\\uploads"
+    print(target)
     if not os.path.isdir(target):
         os.mkdir(target)
-    logger.info("welcome to upload`")
+    # logger.info("welcome to upload`")
     f = request.files['file']
     if f:
         print('Yes ')
@@ -80,7 +85,7 @@ def fileUpload():
         print(str2) 
     
     response = "Whatever you wish too return"
-    return None
+    return render_template('ans.html',res={'hi':'hi'})
 
 @app.route('/', methods=['GET'])
 def home():
@@ -95,12 +100,6 @@ def api():
         'title':'Flask app',
         'completed':False,
     }
-
-# @app.route('/recommend', methods=['POST'])
-# def recommend():
-#         print(url_for("static", filename="index.css"))
-#         return redirect(url_for("static", filename="index.css"))
-
 
 @app.route('/predict', methods=['POST','GET'])
 def predict():
