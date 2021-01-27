@@ -1,9 +1,7 @@
 import React from 'react';
-import { Button } from './Button';
+import { Button  } from 'reactstrap';
 import './Diagnostic.css';
-import { FaFire, FaSyringe, FaXRay } from 'react-icons/fa';
-import { BsXDiamondFill } from 'react-icons/bs';
-import { GiCrystalize } from 'react-icons/gi';
+import { FaSyringe, FaXRay } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
 import { Link } from 'react-router-dom';
 
@@ -26,7 +24,7 @@ function Diagnostic() {
                   <li>Glucose Report</li>
                   <li>Weight</li>
                 </ul>
-                <Button buttonSize='btn--wide' buttonColor='primary'>
+                <Button buttonSize='btn--wide'color="secondary">
                   Check for Diabetes.
                 </Button>
               </div>
@@ -45,7 +43,7 @@ function Diagnostic() {
                   {/* <li>Oxygen level report</li> */}
                 </ul>
               
-                <Button buttonSize='btn--wide' buttonColor='blue'>
+                <Button buttonSize='btn--wide' color="primary">
               
                  Check for Pneumonia.
                 </Button>

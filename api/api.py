@@ -22,10 +22,6 @@ from werkzeug.utils import secure_filename
 
 
 from flask_cors import CORS
-# import logging
-
-# logging.basicConfig(level=logging.INFO)
-# logger = logging.getLogger('HELLO WORLD')
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
@@ -52,40 +48,52 @@ def model_predict(img_path, model):
 
 
 
-@app.route('/pneumonia-predict', methods=['POST'])
+@app.route('/pneumonia-predict', methods=['POST','GET'])
 def fileUpload():
-    print('HI', os.path, os.getcwd())
+    result = ''
+    print('Lets predict Pneumonia', result)
+    if request.method == 'POST':        
+        print('HI', os.path, os.getcwd())
+        
+        # target = os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER'])
+        target = os.getcwd()+"\\uploads"
+        print(target)
+        if not os.path.isdir(target):
+            os.mkdir(target)
+        # logger.info("welcome to upload`")
+        f = request.files['file']
+        if f:
+            print('Yes ')
+        basepath = os.path.dirname(__file__)
+        file_path = os.path.join(
+            basepath, 'uploads', secure_filename(f.filename))
+        f.save(file_path)
+        
+        # filename = secure_filename(file.filename)
+        # destination = "/".join([target, filename])
+        # file.save(destination)
+        # session['uploadFilePath'] = destination
+        preds = model_predict(file_path, model)
+        print(preds)
+        os.remove(file_path)
+        str1 = 'Pneumonia'
+        str2 = 'Normal'
+        if preds == 1:
+            print(str1)
+            result = 'Pneumonia'
+        else:
+            print(str2) 
+            result = 'Normal'
+        
+        response = "Whatever you wish too return"
+        print('1',result)
+        return {'result':result}
     
-    # target = os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER'])
-    target = os.getcwd()+"\\uploads"
-    print(target)
-    if not os.path.isdir(target):
-        os.mkdir(target)
-    # logger.info("welcome to upload`")
-    f = request.files['file']
-    if f:
-        print('Yes ')
-    basepath = os.path.dirname(__file__)
-    file_path = os.path.join(
-        basepath, 'uploads', secure_filename(f.filename))
-    f.save(file_path)
+
+    if request.method == 'GET':
+        print(result)
+        return {'result': result}
     
-    # filename = secure_filename(file.filename)
-    # destination = "/".join([target, filename])
-    # file.save(destination)
-    # session['uploadFilePath'] = destination
-    preds = model_predict(file_path, model)
-    print(preds)
-    os.remove(file_path)
-    str1 = 'Pneumonia'
-    str2 = 'Normal'
-    if preds == 1:
-        print(str1)
-    else:
-        print(str2) 
-    
-    response = "Whatever you wish too return"
-    return render_template('ans.html',res={'hi':'hi'})
 
 @app.route('/', methods=['GET'])
 def home():
@@ -122,18 +130,6 @@ def predict():
         predictionProbability = diabetesLoadedModel.predict_proba(sampleDataFeatures)
         res=predictionProbability[0][1]
         print(res)
-        # if res<=0.5:
-        #     return {
-        #         "res" : 'Non Diabetic'
-        #     }
-        # elif 0.5>res>0.8:
-        #     return {
-        #         "res" : 'Pre Diabetic'
-        #     }
-        # else:
-        #     return {
-        #         "res" : 'Diabetic'
-        #     }
        
         print(request.url,request.form)
         return render_template('prediction.html', formdata={ 
