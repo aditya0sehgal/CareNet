@@ -6,7 +6,7 @@ function Home() {
         <div>
         <Dashboard {...homeObjOne}/>   
         <Dashboard {...homeObjTwo}/>
-        <Dashboard {...homeObjThree}/>
+        {/* <Dashboard {...homeObjThree}/> */}
         <Dashboard {...homeObjFour}/>
         </div>
     )

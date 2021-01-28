@@ -23,13 +23,12 @@ class Hgraph extends React.Component {
       },
     ];
 
-
     this.state = {
       windowWidth: window.innerWidth,
-      yearData,
-      data: yearData[0],
+      yearData: [],
+      data: [],
       historyOpen: false,
-      historyData: yearData[0].data[0],
+      historyData: [],
       formsubmit: false
     }
 
@@ -108,13 +107,50 @@ class Hgraph extends React.Component {
         "value": val,
       }
       healthdataarray.push(current_obj)
-      console.log(current_obj ,key, val);
+      // console.log(current_obj ,key, val);
     }
   }
+    healthdataarray.push({
+      "metric": "painLevel",
+      "value": "2"})
+    healthdataarray.push({
+      "metric": "happiness",
+      "value": "8"})
+    healthdataarray.push({
+      "metric": "other",
+      "value" : "0.5"})
     console.log(healthdataarray);  // replacement for data.json
-  
+      
+    // Checking if our data from the form is converted to the correct data object.
+    
+    const convertedata = this.convertDataSet(healthdataarray);
+    console.log(healthdataarray);
+    console.log(convertedata); 
+
+    const yearData = [
+      {
+        label: '2017',
+        data: convertedata,
+        score: parseInt(calculateHealthScore(convertedata), 10)
+      },
+    ];
+
     // Change the form submitted value to true to display the HGraph.
-    this.setState({formsubmit: true}) 
+    // Setting other state values.
+    this.setState({
+      yearData: yearData,
+      data: yearData[0],
+      historyData: yearData[0].data[0],
+      formsubmit: true
+    })
+    // this.state = {
+    //   yearData: yearData,
+    //   data: yearData[0],
+    //   historyData: yearData[0].data[0],
+    //   formsubmit: true
+    // }
+
+    // this.setState({formsubmit: true}) 
     console.log(this.state);
 
     // Send the health graph form data to the server.
@@ -304,7 +340,7 @@ class Hgraph extends React.Component {
         {this.state.formsubmit === true && 
         <div>
         <div className="card" 
-        style={{ top: this.state.historyOpen ? '210vh' : '250vh' }} 
+        style={{ top: this.state.historyOpen ? '80vh' : '120vh' }} 
         ref={this.card}>
               <div>
                   <p>{ this.state.historyData.label }</p>
