@@ -155,26 +155,61 @@ class Hgraph extends React.Component {
               <Table bordered>
                 <thead>
                   <tr>
-                    <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    
+                    <th>Parameter</th>
+                    <th>Healthy Range</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
+                    
+                    <td>Total Cholesterol</td>
+                    <td>0.25-0.75</td>
                   </tr>
                   <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
+                    
+                    <td>Glucose</td>
+                    <td>61-100</td>
                   </tr>
                   <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
+                    
+                    <td>Systolic Blood Pressure</td>
+                    <td>99-148</td>
+                  </tr>
+                  <tr>
+                 
+                    <td>Diastolic Blood Pressure</td>
+                    <td>65-95</td>
+                  </tr>
+                  <tr>
+                    
+                    <td>Alcohol Use</td>
+                    <td>0-1</td>
+                  </tr>
+                  <tr>
+                    
+                    <td>Nicotine Use</td>
+                    <td>0-1</td>
+                  </tr>
+                  <tr>
+                    
+                    <td>Waist Circumference</td>
+                    <td>30.0-34.5</td>
+                  </tr>
+                  <tr>
+                    
+                    <td>Exercise</td>
+                    <td>3-12</td>
+                  </tr>
+                  <tr>
+                    
+                    <td>Sleep</td>
+                    <td>7.1-8.0</td>
+                  </tr>
+                  <tr>
+                    
+                    <td>Weight</td>
+                    <td>170-205</td>
                   </tr>
                 </tbody>
               </Table>
