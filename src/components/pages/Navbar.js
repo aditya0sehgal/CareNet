@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {Link} from 'react-router-dom';
-import {Button} from '../Button'
+import { Button  } from 'reactstrap';
 import {MdFingerprint} from 'react-icons/md';
 import {FaBars,FaTimes} from 'react-icons/fa';
 import {IconContext} from 'react-icons';
@@ -26,9 +26,11 @@ const showButton=()=>{
         <IconContext.Provider value={{color:'#fff'}}>
       <div className='navbar'>
           <div className='navbar-container container'>
-              <Link to='/' className='navbar-logo' onClick={closedMenu}>
-                 <MdFingerprint className='navbar-icon'/>
+              <Link to='/' onClick={closedMenu}>
+                <h2 style={{textDecoration: 'none', color: 'white'}}>
+                <MdFingerprint className='navbar-icon'/>
                   CareNet
+                </h2> 
               </Link>
               <div className='menu-icon' onClick={handleclick}>
                 {click ?<FaTimes/> :<FaBars/>}
@@ -51,11 +53,11 @@ const showButton=()=>{
        <li className='nav-btn'>
            {button ?(
                <Link to='/signup' className='btn-link'>
-                   <Button buttonStyle='btn--outline' buttonSize='btn--medium'>SIGN UP</Button>
+                   <Button>SIGN UP</Button>
                </Link>
            ):(
             <Link className='btn-link'>
-            <Button buttonStyle='btn--outline'>SIGN UP
+            <Button>SIGN UP
             </Button>
         </Link> 
            )}
