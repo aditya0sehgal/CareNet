@@ -33,7 +33,7 @@ from PIL import Image , ImageOps
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 #Pneumonia Model
-MODEL_PATH = 'pneumonia.h5'
+MODEL_PATH = 'pneumonia.h5' #  Replace the Model with the new one.
 model = load_model(MODEL_PATH)
 filename = 'diabetesModel.pkl'
 # classifier = pickle.load(open(filename, 'rb'))
@@ -52,7 +52,7 @@ det=[1,3]
 from PIL import Image
 def model_predict(img_path, model):
     img = image.load_img(img_path, target_size=(64,64)) #target_size must agree with what the trained model expects!!
-    # img = ImageOps.grayscale(img) 
+    # img = ImageOps.grayscale(img) # uncomment this line and set target size to (256,256).
     # Preprocessing the image
     img = image.img_to_array(img)
     img = np.expand_dims(img, axis=0)
@@ -66,12 +66,11 @@ def fileUpload():
     if request.method == 'POST':        
         print('HI', os.path, os.getcwd())
         
-        # target = os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER'])
         target = os.getcwd()+"\\uploads"
         print(target)
         if not os.path.isdir(target):
             os.mkdir(target)
-        # logger.info("welcome to upload`")
+       
         f = request.files['file']
         if f:
             print('Yes ')
@@ -79,11 +78,6 @@ def fileUpload():
         file_path = os.path.join(
             basepath, 'uploads', secure_filename(f.filename))
         f.save(file_path)
-        
-        # filename = secure_filename(file.filename)
-        # destination = "/".join([target, filename])
-        # file.save(destination)
-        # session['uploadFilePath'] = destination
         preds = model_predict(file_path, model)
         print(preds)
         os.remove(file_path)
@@ -166,34 +160,7 @@ def healthscore():
         print(request.url,'\nNow the data follows',request.json)
         return ''
 
-
-# @app.route('/pneumonia-predict', methods=['GET', 'POST'])
-# def upload():
-
-#     if request.method == 'POST':
-#         # Get the file from post request
-#         f = request.files['file']
-        
-#         # Save the file to ./uploads
-#         basepath = os.path.dirname(__file__)
-#         file_path = os.path.join(
-#             basepath, 'uploads', secure_filename(f.filename))
-#         f.save(file_path)
-
-#         # Make prediction
-#         preds = model_predict(file_path, model)
-#         os.remove(file_path)#removes file from the server after prediction has been returned
-#         print(preds)
-#         # Arrange the correct return according to the model. 
-# 		# In this model 1 is Pneumonia and 0 is Normal.
-#         str1 = 'Pneumonia'
-#         str2 = 'Normal'
-#         if preds == 1:
-#             return str1
-#         else:
-#             return str2
-#     return None
-
+# AUTHENTICATION CODE
 @app.route('/main')
 def home1():
     return render_template('index.html')
