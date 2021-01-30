@@ -1,0 +1,65 @@
+{%extends 'base.html' %}
+
+{% block head %}
+<title>Register with US</title>
+{% endblock %}
+
+{%block body%}
+
+
+<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div align='center' class="login100-pic js-tilt" data-tilt>
+					<img src="/static/images/img-01.png" alt="IMG">
+				</div>
+					
+				<form action="/register" method="POST" class="login100-form validate-form">
+				 	<span class="login100-form-title">
+					<br |>Sign up as a Member
+					</span>
+
+                    <div class="wrap-input100 validate-input" data-validate = "Valid name is required: abc">
+						<input class="input100" type="text" name="name" placeholder="Your Name">
+						<span class="focus-input100"></span>
+						
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input class="input100" type="text" name="email" placeholder="Email">
+						<span class="focus-input100"></span>
+						
+					</div>
+					<div class="wrap-input100 validate-input" data-validate = "Valid mobile is required.">
+						<input class="input100" type="text" name="mobile" placeholder="Mobile No">
+						<span class="focus-input100"></span>
+						
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input class="input100" type="password" name="pass" placeholder="Password">
+						<span class="focus-input100"></span>
+						
+					</div>
+					
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Sign Up
+						</button>
+					<br \></div><br \>
+
+				</form>
+				<div align='center' class="container-login100-form-btn">
+				<a href='http://127.0.0.1:5000/login'>
+						<button class="login100-form-btn">							
+							Login to an existing Account
+						</button>
+						</a>
+					
+					</div><br \><br \><br \><br \><br \><br \><br \>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}
