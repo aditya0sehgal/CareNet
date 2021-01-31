@@ -33,11 +33,12 @@ from PIL import Image , ImageOps
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 #Pneumonia Model
-MODEL_PATH = 'pneumonia.h5' #  Replace the Model with the new one.
+MODEL_PATH = 'new.h5' #  Replace the Model with the new one.
 model = load_model(MODEL_PATH)
 filename = 'diabetesModel.pkl'
 # classifier = pickle.load(open(filename, 'rb'))
 diabetesLoadedModel, means, stds = joblib.load('diabetesModel.pkl')
+
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = '/uploads'
@@ -51,8 +52,8 @@ det=[1,3]
 
 from PIL import Image
 def model_predict(img_path, model):
-    img = image.load_img(img_path, target_size=(64,64)) #target_size must agree with what the trained model expects!!
-    # img = ImageOps.grayscale(img) # uncomment this line and set target size to (256,256).
+    img = image.load_img(img_path, target_size=(256,256)) #target_size must agree with what the trained model expects!!
+    img = ImageOps.grayscale(img) # uncomment this line and set target size to (256,256).
     # Preprocessing the image
     img = image.img_to_array(img)
     img = np.expand_dims(img, axis=0)
