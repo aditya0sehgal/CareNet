@@ -20,7 +20,7 @@ class Register extends Component {
     }
     render() {
         return (
-            <div className='root-container'>
+            <div className='root-container' style={{height:'100vh'}}>
              <div className='box-controller'>
                  <div className={'controller ' + (this.state.isloginopen ?"selected-controller":"")}  onClick={this.showlogin.bind(this)}>
                      Login

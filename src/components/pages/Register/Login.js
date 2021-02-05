@@ -4,61 +4,60 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            result : ''
+            result : '',
+            email: '',
+            password: ''
         };
-    
         this.handleSubmit = this.handleSubmit.bind(this);
       }
-      handleSubmit(event) {
-        console.log("making request")
-        // fetch('/pneumonia-predict', {
-        //     method: 'POST',
-        //     body: data,
-        //   }).then((response) => {
-        //       response.json().then((body) => {
-        //       console.log(this.state);
-        //       console.log(body);
-        //       this.setState({ imageURL: body.file, submitted: true, result: body.result });
-        //       console.log(this.state);
-        //     });
-        //   });
-    //     fetch("/register", {
-    //         method:"POST",
-    //         cache: "no-cache",
-    //         body: data,
-    //         headers:{
-    //             "content_type":"application/json",
-    //         }
-    //         }
-    //     ).then(response => {
-    //     return response.json()
-    //   })
-    //   .then(json => {
-    //   this.setState({result: json[0]})
-    //   console.log(this.state.result)
-    //   })
-      }
+
+      handleSubmit(e) {
+            e.preventDefault() ;
+            let formData  = new FormData();
+            console.log("making request")
+            formData.append('email', document.getElementById("email").value);
+            formData.append('password', document.getElementById("password").value);
+            console.log(formData);
+
+            fetch('/login', {
+                method: 'POST',
+                body: formData
+            })
+            .then( res => res.json())
+            .then( data=>{
+                console.log(data);
+                if(data.state === "Approved"){
+                    // Go to login.
+                    window.location.replace("/")
+                }
+                else{
+                    // Other cases with appr. alert mssg.
+                    alert(data.state)
+                }
+            }).catch(err => console.log(err));
+        }  
+    
     render() {
         return (
             <div className='inner-container'>
                <div className='header'>
                     Login
                 </div>
-                <form action='/login' method='POST' onSubmit={this.handleSubmit}>
+                <form method='POST'>
                 <div className='box'>
                     <div className='input-group'>
                         <label htmlFor='email'>
                                 Email ID
                             </label>
-                        <input type='text' name='email' className='login-input' />
+                        <input type='text' id='email' name='email' className='login-input' />
                     </div>
                     <div className='input-group'>
                         <label htmlFor='password'>
                                 Password
                             </label>
-                        <input type='password' name='password' className='login-input' />
+                        <input type='password' id='password' name='password' className='login-input' />
                     </div>
-                    <button type='submit' className='login-btn' >Sign In</button>
+                    <button onClick={this.handleSubmit} className='login-btn' >Sign In</button>
                     </div>
                 </form>
             </div>

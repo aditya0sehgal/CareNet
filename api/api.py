@@ -173,18 +173,18 @@ def login():
     
 
 
-@app.route('/login',methods=['POST'])
+@app.route('/login', methods=['POST'])
 def login_post():
     # session.pop('user',None)
-    email=request.form.get('email')
-    password=request.form.get('password')
+    email=request.form['email']
+    password=request.form['password']
     data=db.credentials
     flag=False    
     # session.pop('User',None)      
     print(email, password)
-    if email is None or password is None:
-        flash("Please fill both the fields and Try Again")
-        return redirect(url_for('login'))
+    if not email or not password:
+        # flash("Please fill both the fields and Try Again")
+        return {'state': 'Fill both fields and try again'}
     
     
     for i in data.find():
@@ -197,13 +197,13 @@ def login_post():
                 print(session['user'])  
                 det[0]=name
                 det[1]=email                                  
-                return redirect(url_for('profile'))
+                return {'state':'Approved'}
             
     if flag==False:
-        flash("Invalid Credentials")
-        return redirect(url_for('login'))
+        # flash("Invalid Credentials")
+        return {'state':'Invalid Credentials'}
     
-    return redirect(url_for('login'))
+    return {'state':'Undefined'}
    
 
     
@@ -225,8 +225,8 @@ def reg_post():
     data=db.credentials
     for i in data.find():
         if i['email']==email:  
-            flash("Your Email Address is already registered with us")
-            return redirect(url_for('login')) 
+            # flash("Your Email Address is already registered with us")
+            return {'state': 'Your Email Address is already registered with us'}
     else:   
         user_info={'username': name,
                 'mobile':mob,
@@ -234,7 +234,7 @@ def reg_post():
                 'password': password} 
         data.insert_one(user_info)
         
-    return redirect(url_for('login'))
+    return {'state': 'Approved'}
 
 @app.route('/logout')
 def logoute():

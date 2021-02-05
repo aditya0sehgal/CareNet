@@ -9,34 +9,34 @@ class Signup extends Component {
     
         this.handleSubmit = this.handleSubmit.bind(this);
       }
-      handleSubmit(event) {
+
+      handleSubmit(e) {
+        e.preventDefault() ;
+        let formData  = new FormData();
         console.log("making request")
-        // fetch('/pneumonia-predict', {
-        //     method: 'POST',
-        //     body: data,
-        //   }).then((response) => {
-        //       response.json().then((body) => {
-        //       console.log(this.state);
-        //       console.log(body);
-        //       this.setState({ imageURL: body.file, submitted: true, result: body.result });
-        //       console.log(this.state);
-        //     });
-        //   });
-    //     fetch("/register", {
-    //         method:"POST",
-    //         cache: "no-cache",
-    //         body: data,
-    //         headers:{
-    //             "content_type":"application/json",
-    //         }
-    //         }
-    //     ).then(response => {
-    //     return response.json()
-    //   })
-    //   .then(json => {
-    //   this.setState({result: json[0]})
-    //   console.log(this.state.result)
-    //   })
+        formData.append('name', document.getElementById("name").value);
+        formData.append('email', document.getElementById("email").value);
+        formData.append('mobile', document.getElementById("mobile").value);
+        formData.append('password', document.getElementById("password").value);
+        console.log(formData);
+
+        fetch('/register', {
+            method: 'POST',
+            body: formData
+        })
+        .then( res => res.json())
+        .then( data=>{
+            console.log(data);
+            if(data.state === "Approved"){
+                // Go to login.
+                window.location.replace("/signup")
+            }
+            else{
+                // Other cases with appr. alert mssg.
+                alert(data.state)
+            }
+        }).catch(err => console.log(err));
+        
       }
     render() {
         return (
@@ -44,34 +44,33 @@ class Signup extends Component {
                 <div className='header'>
                     Register
                 </div>
-                <form action='/register' method='POST' onSubmit={this.handleSubmit}>
+                <form method='POST' >
                 <div className='box'>
-                        
                         <div className='input-group'>
                             <label htmlFor='name'>
                                     Username
                             </label>
-                            <input type='text' name='name' className='login-input' />
+                            <input type='text' id='name' name='name' className='login-input' />
                         </div>
                         <div className='input-group'>
                             <label htmlFor='email'>
                                     Email-id
                             </label>
-                            <input type='text' name='email' className='login-input' />
+                            <input type='text' id='email' name='email' className='login-input' />
                         </div>
                         <div className='input-group'>
                             <label htmlFor='mobile'>
                                     Mobile No.
                             </label>
-                            <input type='number' name='mobile' className='login-input' />
+                            <input type='number' id='mobile' name='mobile' className='login-input' />
                         </div>
                         <div className='input-group'>
                             <label htmlFor='password'>
                                     Password
                             </label>
-                            <input type='password' name='password' className='login-input' />
+                            <input type='password' id='password' name='password' className='login-input' />
                         </div>
-                            <button type='submit' className='login-btn' >Register</button>
+                            <button onClick={this.handleSubmit} className='login-btn' >Register</button>
                       
                 </div>
                 </form>
