@@ -135,6 +135,9 @@ class Hgraph extends React.Component {
       },
     ];
 
+    console.log(yearData);
+    value.score=yearData[0].score;
+    console.log(value);
     // Change the form submitted value to true to display the HGraph.
     // Setting other state values.
     this.setState({

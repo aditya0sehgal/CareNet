@@ -29,6 +29,8 @@ from werkzeug.security import generate_password_hash,check_password_hash
 import bcrypt
 from flask_login import login_user,current_user
 from PIL import Image , ImageOps
+from bson import ObjectId
+import datetime
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
@@ -91,13 +93,34 @@ def fileUpload():
             print(str2) 
             result = 'Normal'
         
-        response = "Whatever you wish too return"
+
+        # response = "Whatever you wish too return"
         print('1',result)
+        data=db.credentials
+        if (len(session)>=1 and session['id']):
+            print(session['user'], session['id'])
+            # print(data.find_one({ '_id': session['id']}))
+            data.update(
+                {'_id': ObjectId(session['id'])},
+                # {"username": session['user']},
+                { "$push": 
+                # {'pneumonia': 10}
+                        { 
+                        "pneumonia": {
+                            "date": datetime.datetime.now(),
+                            "prediction": result
+                        }
+                    }
+                }
+            )
+            print(session['user'])
+
         return {'result':result}
-    
+        
 
     if request.method == 'GET':
         print(result)
+        
         return {'result': result}
     
 
@@ -147,8 +170,33 @@ def predict():
         sampleDataFeatures = (data - means)/stds
         predictionProbability = diabetesLoadedModel.predict_proba(sampleDataFeatures)
         res=predictionProbability[0][1]
+        data=db.credentials
+        if (len(session)>=1 and session['id']):
+            print(session['user'], session['id'])
+            # print(data.find_one({ '_id': session['id']}))
+            data.update(
+                {'_id': ObjectId(session['id'])},
+                # {"username": session['user']},
+                { "$push": 
+                # {'pneumonia': 10}
+                        { 
+                        "diabetes": {
+                            "date": datetime.datetime.now(),
+                            "pregnancies": preg,
+                            "glucose":glucose,
+                            "bp": bp,
+                            "st":st,
+                            "insulin":insulin,
+                            "bmi":bmi,
+                            "dpf":dpf,
+                            "age":age,
+                            "prediction": round(res,2),
+                        }
+                    }
+                }
+            )
         print(res)
-       
+        
         print(request.url,request.form)
         return render_template('prediction.html', formdata={ 
                     "preg" : int(request.form['pregnancies']),
@@ -170,19 +218,24 @@ def predict():
 @app.route('/healthscore', methods=['POST'])
 def healthscore():
     if request.method == 'POST':
+        request.json["date"] = datetime.datetime.now()
         print(request.url,'\nNow the data follows',request.json)
+
+        data=db.credentials
+        if (len(session)>=1 and session['id']):
+            print(session['user'], session['id'])
+            # print(data.find_one({ '_id': session['id']}))
+            data.update(
+                {'_id': ObjectId(session['id'])},
+                # {"username": session['user']},
+                { "$push": 
+                # {'pneumonia': 10}
+                        { 
+                        "hgraph": request.json
+                    }
+                }
+            )
         return ''
-
-# AUTHENTICATION CODE
-@app.route('/main')
-def home1():
-    return render_template('index.html')
-
-
-@app.route('/login')
-def login():    
-    return render_template('login.html')
-    
 
 
 @app.route('/login', methods=['POST'])
@@ -206,6 +259,8 @@ def login_post():
             if check_password_hash(i['password'], password):    
                 flag=True
                 session['user']=name 
+                session['id']=  str(i["_id"])
+                print(session)
                 print(session['user'])  
                 det[0]=name
                 det[1]=email                                  
@@ -217,11 +272,7 @@ def login_post():
     
     return {'state':'Undefined'}
    
-    
 
-@app.route('/register')
-def reg():
-    return render_template('register.html')
 
 @app.route('/register',methods=['POST'])
 def reg_post():
@@ -242,27 +293,22 @@ def reg_post():
         user_info={'username': name,
                 'mobile':mob,
                 'email': email,
-                'password': password} 
+                'password': password,
+                'diabetes': [],
+                'hgraph': [],
+                'pneumonia':[]
+                 } 
         data.insert_one(user_info)
         
     return {'state': 'Approved'}
 
 @app.route('/logout')
 def logoute():
-    session.pop('user', None)  
+    session.pop('user', None)
+    session.pop('id', None)
+    print(session)  
     det=[]  
     return {}
-
-@app.route('/profile')
-def profile():   
-    if g.user:
-         return render_template('profile.html',username=det[0],email=det[1])        
-    elif det==[]:
-        flash("You are kindly requested to Login first")        
-        return redirect(url_for('login')) 
-   
-    flash("You are kindly requested to Login first") 
-    return redirect(url_for('login'))
 
 @app.before_request
 def before_request():

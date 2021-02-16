@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import { Button  } from 'reactstrap';
-import {MdFingerprint} from 'react-icons/md';
+import {BiDonateHeart} from 'react-icons/bi';
 import {FaBars,FaTimes} from 'react-icons/fa';
 import {IconContext} from 'react-icons';
 import './navbar.css'
@@ -44,7 +44,7 @@ function Navbar() {
           <div className='navbar-container container'>
               <Link to='/' onClick={closedMenu}>
                 <h2 style={{textDecoration: 'none', color: 'white'}}>
-                <MdFingerprint className='navbar-icon'/>
+                <BiDonateHeart className='navbar-icon'/>
                   CareNet
                 </h2> 
               </Link>
