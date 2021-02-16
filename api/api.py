@@ -107,8 +107,20 @@ def home():
         "hi": "Flask"
     }
 
+@app.route('/sessioninfo', methods=['GET'])
+def sessioninfo():
+    print(len(session)<1)
+    if(len(session)>=1 and session['user']):   
+        return {
+            "username": session['user']
+        }
+    else:
+        return {
+            "username": None
+        }
+
 @app.route('/api', methods=['GET'])
-def api():
+def api():    
     return {
         'userId':1,
         'title':'Flask app',
@@ -198,14 +210,13 @@ def login_post():
                 det[0]=name
                 det[1]=email                                  
                 return {'state':'Approved'}
-            
+
     if flag==False:
         # flash("Invalid Credentials")
         return {'state':'Invalid Credentials'}
     
     return {'state':'Undefined'}
    
-
     
 
 @app.route('/register')
@@ -240,7 +251,7 @@ def reg_post():
 def logoute():
     session.pop('user', None)  
     det=[]  
-    return redirect(url_for('login'))
+    return {}
 
 @app.route('/profile')
 def profile():   

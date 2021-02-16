@@ -21,8 +21,8 @@ function Diagnostic() {
                   <div className='icon'>
                     <FaSyringe />
                   </div>
+                  <p>Requirements</p>
                   <CardText className='mt-2' style={{textAlign:'left'}}>
-                    <p>Requirements</p>
                     <ul >
                       <li>Bmi Report</li>
                       <li>Glucose Report</li>
@@ -41,8 +41,8 @@ function Diagnostic() {
                   <div className='icon'>
                     <FaXRay />
                   </div>
+                  <p>Requirements</p>
                   <CardText className='mt-2' style={{textAlign:'left'}}>
-                    <p>Requirements</p>
                     <ul>
                       <li>Xray of lungs</li>
                     </ul>

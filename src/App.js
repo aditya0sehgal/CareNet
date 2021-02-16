@@ -20,9 +20,7 @@ function App() {
   },[]);
 
   return (
-    <div className="App">
-      {/* <h1> Hello - {initialData.title}</h1> */}
-      
+    <div className="App">      
       <Router>
       <Navbar></Navbar>
       <Switch>
@@ -33,10 +31,7 @@ function App() {
         <Route path='/HGraph' component={Hgraph} />
         <Route path='/signup' component={Register}/>
       </Switch>
-       </Router>
-      {/* <h1>
-        {initialData.res}
-      </h1> */}
+      </Router>
 </div>
   );
 }

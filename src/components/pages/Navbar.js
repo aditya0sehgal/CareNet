@@ -1,26 +1,42 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import { Button  } from 'reactstrap';
 import {MdFingerprint} from 'react-icons/md';
 import {FaBars,FaTimes} from 'react-icons/fa';
 import {IconContext} from 'react-icons';
 import './navbar.css'
+
 function Navbar() {
     const [click,setClick]=useState(false);
     const [button,setButton]=useState(true)
     const handleclick =() =>setClick(!click);
     const closedMenu=() =>setClick(false)
-const showButton=()=>{
-    if(window.innerWidth<=960){
-        setButton(false);
-    }
-        else{
-        setButton(true)
-    }
-    };
+    const showButton=()=>{
+        if(window.innerWidth<=960){
+            setButton(false);
+        }
+            else{
+            setButton(true)
+        }
+        };
     window.addEventListener('resize',showButton);
 
-    
+    const [user, setUserSession] = useState({user: ''})
+
+    useEffect(()=> {
+      fetch('/sessioninfo')
+      .then(response => response.json()
+      ).then(data => {
+            console.log(data);
+            console.log(user);
+
+            if(data['username']){
+                setUserSession({user : data['username']})
+            }
+            return ;
+    })
+    },[]);
+
     return (
         <>
         <IconContext.Provider value={{color:'#fff'}}>
@@ -47,20 +63,32 @@ const showButton=()=>{
            Diagnostics
        </Link>
        </li> 
-       <li className='nav-item'>
        
-       </li>  
        <li className='nav-btn'>
-           {button ?(
+           {/* {button ?(
                <Link to='/signup' className='btn-link'>
                    <Button>SIGN UP</Button>
                </Link>
-           ):(
-            <Link className='btn-link'>
-            <Button>SIGN UP
-            </Button>
-        </Link> 
-           )}
+           ):( */}
+           {user.user === ''  ? 
+           
+            <Link to='/signup' className='btn-link'>
+                <Button>SIGN UP</Button>
+            </Link>
+           :
+            <Link style={{textDecoration: 'none'}} className='btn-link'>
+                Welcome {user.user.toUpperCase()} &nbsp;
+                <Button onClick={() => fetch('/logout')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); 
+                    window.location.replace('/')
+                    }
+                )}>Logout</Button>
+            </Link>
+            
+           }
+           
        </li>
     </ul>          
     </div>
