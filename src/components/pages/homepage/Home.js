@@ -34,7 +34,12 @@ function Home() {
     }
     else{
         return(
-            <PersonalHome></PersonalHome>
+            <div>
+                <PersonalHome></PersonalHome>
+                <Dashboard {...homeObjOne}/>   
+                <Dashboard {...homeObjTwo}/>
+                <Dashboard {...homeObjFour}/>
+            </div>
         )
     }
 }

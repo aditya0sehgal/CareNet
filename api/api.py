@@ -150,6 +150,21 @@ def api():
         'completed':False,
     }
 
+@app.route('/userdata', methods=['GET'])
+def userdata():
+
+    data=db.credentials
+    print(session)
+    print(data.find_one({ '_id': ObjectId(session['id'])})['diabetes'])
+
+    return {
+        'faltudata': 'hi',
+        'diabetesdata': data.find_one({ '_id': ObjectId(session['id'])})['diabetes'],
+        'hgraphdata': data.find_one({ '_id': ObjectId(session['id'])})['hgraph'],
+        'pneumoniadata': data.find_one({ '_id': ObjectId(session['id'])})['pneumonia'],
+    }
+
+
 @app.route('/predict', methods=['POST','GET'])
 def predict():
     if request.method == 'POST':
@@ -163,10 +178,7 @@ def predict():
         age = int(request.form['age'])
        
         data = np.array([[preg, glucose, bp, st, insulin, bmi, dpf, age]])
-        # my_prediction = classifier.predict(data)
-        # m=np.asarray([ 5.46571335e-18, -1.50307117e-16 , 3.22477088e-16 ,-2.39124959e-17,
-        #   3.82599935e-17 , 4.91914202e-17,  1.50307117e-16 , 1.17512837e-16])
-        # s=np.asarray([1, 1, 1, 1, 1, 1, 1, 1])
+        
         sampleDataFeatures = (data - means)/stds
         predictionProbability = diabetesLoadedModel.predict_proba(sampleDataFeatures)
         res=predictionProbability[0][1]
