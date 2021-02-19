@@ -97,6 +97,7 @@ def fileUpload():
         # response = "Whatever you wish too return"
         print('1',result)
         data=db.credentials
+        now=datetime.datetime.now()
         if (len(session)>=1 and session['id']):
             print(session['user'], session['id'])
             # print(data.find_one({ '_id': session['id']}))
@@ -107,7 +108,7 @@ def fileUpload():
                 # {'pneumonia': 10}
                         { 
                         "pneumonia": {
-                            "date": datetime.datetime.now(),
+                            "date": now.strftime("%Y-%m-%d %H:%M:%S"),
                             "prediction": result
                         }
                     }
@@ -153,14 +154,14 @@ def api():
 @app.route('/predict', methods=['POST','GET'])
 def predict():
     if request.method == 'POST':
-        preg = int(request.form['pregnancies'])
-        glucose = int(request.form['glucose'])
-        bp = int(request.form['bloodpressure'])
-        st = int(request.form['skinthickness'])
-        insulin = int(request.form['insulin'])
-        bmi = float(request.form['bmi'])
-        dpf = float(request.form['dpf'])
-        age = int(request.form['age'])
+        preg = int(request.form.get('pregnancies', False))
+        glucose = int(request.form.get('glucose', False))
+        bp = int(request.form.get('bloodpressure', False))
+        st = int(request.form.get('skinthickness', False))
+        insulin = int(request.form.get('insulin', False))
+        bmi = float(request.form.get('bmi', False))
+        dpf = float(request.form.get('dpf', False))
+        age = int(request.form.get('age', False))
        
         data = np.array([[preg, glucose, bp, st, insulin, bmi, dpf, age]])
         # my_prediction = classifier.predict(data)
@@ -174,6 +175,7 @@ def predict():
         if (len(session)>=1 and session['id']):
             print(session['user'], session['id'])
             # print(data.find_one({ '_id': session['id']}))
+            now=datetime.datetime.now()
             data.update(
                 {'_id': ObjectId(session['id'])},
                 # {"username": session['user']},
@@ -181,7 +183,7 @@ def predict():
                 # {'pneumonia': 10}
                         { 
                         "diabetes": {
-                            "date": datetime.datetime.now(),
+                            "date": now.strftime("%Y-%m-%d %H:%M:%S"),
                             "pregnancies": preg,
                             "glucose":glucose,
                             "bp": bp,
@@ -199,14 +201,14 @@ def predict():
         
         print(request.url,request.form)
         return render_template('prediction.html', formdata={ 
-                    "preg" : int(request.form['pregnancies']),
-                    "glucose" : int(request.form['glucose']),
-                    "bp" : int(request.form['bloodpressure']),
-                    "st" : int(request.form['skinthickness']),
-                    "insulin" : int(request.form['insulin']),
-                    "bmi" : float(request.form['bmi']),
-                    "dpf" : float(request.form['dpf']),
-                    "age" : int(request.form['age'])
+                    "preg": preg,
+                    "glucose":glucose,
+                    "bp": bp,
+                    "st":st,
+                    "insulin":insulin,
+                    "bmi":bmi,
+                    "dpf":dpf,
+                    "age":age,
                     }, res=res)
 
 
@@ -218,7 +220,8 @@ def predict():
 @app.route('/healthscore', methods=['POST'])
 def healthscore():
     if request.method == 'POST':
-        request.json["date"] = datetime.datetime.now()
+        now=datetime.datetime.now()
+        request.json["date"] = now.strftime("%Y-%m-%d %H:%M:%S")
         print(request.url,'\nNow the data follows',request.json)
 
         data=db.credentials
