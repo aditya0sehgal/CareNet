@@ -4,7 +4,7 @@ import { Button  } from 'reactstrap';
 import {BiDonateHeart} from 'react-icons/bi';
 import {FaBars,FaTimes} from 'react-icons/fa';
 import {IconContext} from 'react-icons';
-import './navbar.css'
+import './navbar.css'   
 
 function Navbar() {
     const [click,setClick]=useState(false);
@@ -44,18 +44,23 @@ function Navbar() {
           <div className='navbar-container container'>
               <Link to='/' onClick={closedMenu}>
                 <h2 style={{textDecoration: 'none', color: 'white'}}>
+                CareNet &nbsp; 
                 <BiDonateHeart className='navbar-icon'/>
-                  CareNet
                 </h2> 
               </Link>
               <div className='menu-icon' onClick={handleclick}>
                 {click ?<FaTimes/> :<FaBars/>}
               </div>
               <ul className={click ? 'nav-menu active' : 'nav-menu'}
->
-   <li className='nav-item'>
+                >
+        <li className='nav-item'>
        <Link to='/' className='nav-links'>
            Home
+       </Link>
+       </li>
+        <li className='nav-item'>
+       <Link to='/Hgraph' className='nav-links'>
+            Health Graph
        </Link>
        </li>
        <li className='nav-item'>
@@ -77,7 +82,7 @@ function Navbar() {
             </Link>
            :
             <Link style={{textDecoration: 'none'}} className='btn-link'>
-                Welcome {user.user.toUpperCase()} &nbsp;
+                {user.user.toUpperCase()} &nbsp;
                 <Button onClick={() => fetch('/logout')
                 .then(response => response.json())
                 .then(data => {
