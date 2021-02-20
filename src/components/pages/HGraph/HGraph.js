@@ -185,7 +185,7 @@ class Hgraph extends React.Component {
       <div className="App">
       <div className="root-container" style={{ height: this.state.formsubmit ? '270vh' :'150vh' }} >
                        
-          <h1 style={{color:'white'}}>
+          <h1>
             Health Score 
           </h1>
             
@@ -358,7 +358,7 @@ class Hgraph extends React.Component {
             score={ this.state.data.score }
             width={ size }
             height={ size }
-            fontColor={'rgb(255, 255, 255)'}
+            fontColor={'rgb(0, 0, 0)'}
             scoreFontColor={'rgb(255, 255, 255)'}
             fontSize={ size < 300 ? 16 : 19 }
             pointRadius={ size < 300 ? 5 : 10 }
@@ -370,10 +370,9 @@ class Hgraph extends React.Component {
           />
         </div>
        <br></br>
-        <Table bordered>
+        <Table style={{fontWeight: 'bold'}} bordered>
                 <thead>
                   <tr>
-                    
                     <th>Parameter</th>
                     <th>Values Entered</th>
                     <th>Healthy Range</th>
@@ -381,63 +380,62 @@ class Hgraph extends React.Component {
                 </thead>
                 <tbody>
                   <tr>
-                    
                     <td>Total Cholesterol</td>
-                    <td style={{color: "blue"}}>{this.state.datavalue['totalCholesterol']}</td>
+                    <td style={{color: (0.25 <= this.state.datavalue['totalCholesterol'] &&  this.state.datavalue['totalCholesterol'] <= 0.75) ? "green":"red"}}>{this.state.datavalue['totalCholesterol']}</td>
                     <td>0.25-0.75</td>
                   </tr>
                   <tr>
                     
                     <td>Glucose</td>
-                    <td  style={{color: 61 <= this.state.datavalue['glucose'] <= 100 ? "green" : "red"}}>{this.state.datavalue['glucose']}</td>
+                    <td  style={{color: (61 <= this.state.datavalue['glucose'] &&  this.state.datavalue['glucose'] <= 100) ? "green" : "red"}}>{this.state.datavalue['glucose']}</td>
                     <td>61-100</td>
                   </tr>
                   <tr>
                     
                     <td>Systolic Blood Pressure</td>
-                    <td style={{color: 99 <= this.state.datavalue['bloodPressureSystolic'] <= 148 ? "green" : "red"}}>{this.state.datavalue['bloodPressureSystolic']}</td>
+                    <td style={{color: 99 <= this.state.datavalue['bloodPressureSystolic'] && this.state.datavalue['bloodPressureSystolic'] <= 148 ? "green" : "red"}}>{this.state.datavalue['bloodPressureSystolic']}</td>
                     <td>99-148</td>
                   </tr>
                   <tr>
                  
                     <td>Diastolic Blood Pressure</td>
-                    <td style={{color: 65 <= this.state.datavalue['bloodPressureDiastolic'] <= 95 ? "green" : "red"}}>{this.state.datavalue['bloodPressureDiastolic']}</td>
+                    <td style={{color: 65 <= this.state.datavalue['bloodPressureDiastolic'] && this.state.datavalue['bloodPressureDiastolic'] <= 95 ? "green" : "red"}}>{this.state.datavalue['bloodPressureDiastolic']}</td>
                     <td>65-95</td>
                   </tr>
                   <tr>
                     
                     <td>Alcohol Use</td>
-                    <td style={{color: 0 <= this.state.datavalue['alcoholUse'] <= 1 ? "green" : "red"}}>{this.state.datavalue['alcoholUse']}</td>
+                    <td style={{color: 0 <= this.state.datavalue['alcoholUse'] && this.state.datavalue['alcoholUse'] <= 1 ? "green" : "red"}}>{this.state.datavalue['alcoholUse']}</td>
                     <td>0-1</td>
                   </tr>
                   <tr>
                     
                     <td>Nicotine Use</td>
-                    <td style={{color: 0 <= this.state.datavalue['nicotineUse'] <= 1 ? "green" : "red"}}>{this.state.datavalue['nicotineUse']}</td>
+                    <td style={{color: 0 <= this.state.datavalue['nicotineUse'] && this.state.datavalue['nicotineUse'] <= 1 ? "green" : "red"}}>{this.state.datavalue['nicotineUse']}</td>
                     <td>0-1</td>
                   </tr>
                   <tr>
                     
                     <td>Waist Circumference</td>
-                    <td style={{color: 30 <= this.state.datavalue['waistCircumference'] <= 34.5 ? "green" : "red"}}>{this.state.datavalue['waistCircumference']}</td>
+                    <td style={{color: 30 <= this.state.datavalue['waistCircumference'] && this.state.datavalue['waistCircumference'] <= 34.5 ? "green" : "red"}}>{this.state.datavalue['waistCircumference']}</td>
                     <td>30.0-34.5</td>
                   </tr>
                   <tr>
                     
                     <td>Exercise</td>
-                    <td style={{color: 3 <= this.state.datavalue['exercise'] <= 12 ? "green" : "red"}}>{this.state.datavalue['exercise']}</td>
+                    <td style={{color: 3 <= this.state.datavalue['exercise'] && this.state.datavalue['exercise'] <= 12 ? "green" : "red"}}>{this.state.datavalue['exercise']}</td>
                     <td>3-12</td>
                   </tr>
                   <tr>
                     
                     <td>Sleep</td>
-                    <td style={{color: 7.1 <= this.state.datavalue['sleep'] <= 8.0 ? "green" : "red"}}>{this.state.datavalue['sleep']}</td>
+                    <td style={{color: 7.1 <= this.state.datavalue['sleep'] && this.state.datavalue['sleep'] <= 8.0 ? "green" : "red"}}>{this.state.datavalue['sleep']}</td>
                     <td>7.1-8.0</td>
                   </tr>
                   <tr>
                     
                     <td>Weight</td>
-                    <td style={{color: 170 <= this.state.datavalue['weight'] <= 205 ? "green" : "red"}}>{this.state.datavalue['weight']}</td>
+                    <td style={{color: 170 <= this.state.datavalue['weight'] && this.state.datavalue['weight'] <= 205 ? "green" : "red"}}>{this.state.datavalue['weight']}</td>
                     <td>170-205</td>
                   </tr>
                 </tbody>
