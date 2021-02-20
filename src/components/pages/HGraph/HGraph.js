@@ -29,7 +29,8 @@ class Hgraph extends React.Component {
       data: [],
       historyOpen: false,
       historyData: [],
-      formsubmit: false
+      formsubmit: false,
+      datavalue:[]
     }
 
     console.log(this.state.data);
@@ -95,7 +96,7 @@ class Hgraph extends React.Component {
     const value = Object.fromEntries(data.entries());
     console.log( JSON.stringify(value) );  // View entered values from the form.
     console.log( value );  // View entered values from the form.
-
+    this.setState({datavalue: value})
     // To generate a json file having data from the form to use on the HGraph component.
     let healthdataarray = []
     for (var key in value) {
@@ -157,7 +158,7 @@ class Hgraph extends React.Component {
     console.log(this.state);
 
     // Send the health graph form data to the server.
-    fetch('healthscore', {
+    fetch('/healthscore', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -179,16 +180,16 @@ class Hgraph extends React.Component {
     const size = sizeBasedOnWindow > 450 ? 450 : sizeBasedOnWindow;
     // const historySize = this.card.current ? this.card.current.clientWidth - 20 : 0;
 
-
+    // backgroundImage:"url('healthgraph.jpg')
     return (
       <div className="App">
-      <div className="root-container" style={{ height: this.state.formsubmit ? '270vh' :'150vh' , backgroundImage:"url('healthgraph.jpg')"}} >
+      <div className="root-container" style={{ height: this.state.formsubmit ? '270vh' :'150vh' }} >
                        
           <h1 style={{color:'white'}}>
             Health Score 
           </h1>
             
-          <UncontrolledPopover trigger="focus" placement="right" target="PopoverFocus">
+          {/* <UncontrolledPopover trigger="focus" placement="right" target="PopoverFocus">
             <PopoverHeader>Healthy range values for each parameter.</PopoverHeader>
             <PopoverBody>
               <Table bordered>
@@ -253,7 +254,7 @@ class Hgraph extends React.Component {
                 </tbody>
               </Table>
             </PopoverBody>
-          </UncontrolledPopover>
+          </UncontrolledPopover> */}
           {/* <Button color="primary">hello</Button> */}
           <div className='box-container' >
             {/* <form action='/healthscore' method='POST' onSubmit={this.handleClick}> */}
@@ -335,15 +336,15 @@ class Hgraph extends React.Component {
             </form>
         </div>
         <h3>
-        <Button id="PopoverFocus" color='primary' style={{borderRadius:'30px'}} type="button">
+        {/* <Button id="PopoverFocus" color='primary' style={{borderRadius:'30px'}} type="button">
           Healthy Range Values
+        </Button>  */}
         {/* <i style={{color:'whitesmoke'}} class="fa fa-info"></i>  */}
-        </Button> 
         </h3> 
         {this.state.formsubmit === true && 
         <div>
         <div className="card" 
-        style={{ top: this.state.historyOpen ? '80vh' : '120vh' }} 
+        style={{ top: this.state.historyOpen ? '80vh' : '100vh' }} 
         ref={this.card}>
               <div>
                   <p>{ this.state.historyData.label }</p>
@@ -368,7 +369,82 @@ class Hgraph extends React.Component {
             zoomOnPointClick={true}
           />
         </div>
+       <br></br>
+        <Table bordered>
+                <thead>
+                  <tr>
+                    
+                    <th>Parameter</th>
+                    <th>Values Entered</th>
+                    <th>Healthy Range</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    
+                    <td>Total Cholesterol</td>
+                    <td style={{color: "blue"}}>{this.state.datavalue['totalCholesterol']}</td>
+                    <td>0.25-0.75</td>
+                  </tr>
+                  <tr>
+                    
+                    <td>Glucose</td>
+                    <td  style={{color: 61 <= this.state.datavalue['glucose'] <= 100 ? "green" : "red"}}>{this.state.datavalue['glucose']}</td>
+                    <td>61-100</td>
+                  </tr>
+                  <tr>
+                    
+                    <td>Systolic Blood Pressure</td>
+                    <td style={{color: 99 <= this.state.datavalue['bloodPressureSystolic'] <= 148 ? "green" : "red"}}>{this.state.datavalue['bloodPressureSystolic']}</td>
+                    <td>99-148</td>
+                  </tr>
+                  <tr>
+                 
+                    <td>Diastolic Blood Pressure</td>
+                    <td style={{color: 65 <= this.state.datavalue['bloodPressureDiastolic'] <= 95 ? "green" : "red"}}>{this.state.datavalue['bloodPressureDiastolic']}</td>
+                    <td>65-95</td>
+                  </tr>
+                  <tr>
+                    
+                    <td>Alcohol Use</td>
+                    <td style={{color: 0 <= this.state.datavalue['alcoholUse'] <= 1 ? "green" : "red"}}>{this.state.datavalue['alcoholUse']}</td>
+                    <td>0-1</td>
+                  </tr>
+                  <tr>
+                    
+                    <td>Nicotine Use</td>
+                    <td style={{color: 0 <= this.state.datavalue['nicotineUse'] <= 1 ? "green" : "red"}}>{this.state.datavalue['nicotineUse']}</td>
+                    <td>0-1</td>
+                  </tr>
+                  <tr>
+                    
+                    <td>Waist Circumference</td>
+                    <td style={{color: 30 <= this.state.datavalue['waistCircumference'] <= 34.5 ? "green" : "red"}}>{this.state.datavalue['waistCircumference']}</td>
+                    <td>30.0-34.5</td>
+                  </tr>
+                  <tr>
+                    
+                    <td>Exercise</td>
+                    <td style={{color: 3 <= this.state.datavalue['exercise'] <= 12 ? "green" : "red"}}>{this.state.datavalue['exercise']}</td>
+                    <td>3-12</td>
+                  </tr>
+                  <tr>
+                    
+                    <td>Sleep</td>
+                    <td style={{color: 7.1 <= this.state.datavalue['sleep'] <= 8.0 ? "green" : "red"}}>{this.state.datavalue['sleep']}</td>
+                    <td>7.1-8.0</td>
+                  </tr>
+                  <tr>
+                    
+                    <td>Weight</td>
+                    <td style={{color: 170 <= this.state.datavalue['weight'] <= 205 ? "green" : "red"}}>{this.state.datavalue['weight']}</td>
+                    <td>170-205</td>
+                  </tr>
+                </tbody>
+              </Table>
+        
         </div>
+        
         }
         </div>
       </div>
