@@ -156,7 +156,7 @@ def userdata():
 
     data=db.credentials
     print(session)
-    print(data.find_one({ '_id': ObjectId(session['id'])})['diabetes'])
+    # print(data.find_one({ '_id': ObjectId(session['id'])})['diabetes'])
 
     return {
         'faltudata': 'hi',
@@ -177,7 +177,7 @@ def predict():
         bmi = float(request.form.get('bmi', False))
         dpf = float(request.form.get('dpf', False))
         age = int(request.form.get('age', False))
-       
+        print(preg,glucose,bp)
         data = np.array([[preg, glucose, bp, st, insulin, bmi, dpf, age]])
         
         sampleDataFeatures = (data - means)/stds
@@ -212,6 +212,17 @@ def predict():
         print(res)
         
         print(request.url,request.form)
+        return {
+                    "preg": preg,
+                    "glucose":glucose,
+                    "bp": bp,
+                    "st":st,
+                    "insulin":insulin,
+                    "bmi":bmi,
+                    "dpf":dpf,
+                    "age":age,
+                    "res":res,
+                }   
         return render_template('prediction.html', formdata={ 
                     "preg": preg,
                     "glucose":glucose,
@@ -250,7 +261,7 @@ def healthscore():
                     }
                 }
             )
-        return ''
+        return { 'state': 'Approved' }
 
 
 @app.route('/login', methods=['POST'])
@@ -270,7 +281,7 @@ def login_post():
     for i in data.find():
         if i['email']==email:
             name=i['username']
-            print(i, password, generate_password_hash(password, method='sha256'))            
+            # print(i, password, generate_password_hash(password, method='sha256'))            
             if check_password_hash(i['password'], password):    
                 flag=True
                 session['user']=name 
