@@ -157,7 +157,7 @@ class Hgraph extends React.Component {
     console.log(this.state);
 
     // Send the health graph form data to the server.
-    fetch('healthscore', {
+    fetch('/healthscore', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',

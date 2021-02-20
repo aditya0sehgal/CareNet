@@ -36,6 +36,7 @@ function Home() {
         return(
             <div>
                 <PersonalHome></PersonalHome>
+                <hr style={{color:'black'}}></hr>
                 <Dashboard {...homeObjOne}/>   
                 <Dashboard {...homeObjTwo}/>
                 <Dashboard {...homeObjFour}/>
