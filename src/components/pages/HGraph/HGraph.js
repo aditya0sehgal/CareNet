@@ -370,6 +370,7 @@ class Hgraph extends React.Component {
           />
         </div>
        <br></br>
+       <br></br>
         <Table style={{fontWeight: 'bold'}} bordered>
                 <thead>
                   <tr>

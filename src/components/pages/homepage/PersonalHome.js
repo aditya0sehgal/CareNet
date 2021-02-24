@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Line } from '@reactchartjs/react-chart.js';
  
+import { Table  } from 'reactstrap';
+
 const data = {
     labels: ['1', '2', '3', '4', '5', '6'],
     datasets: [
@@ -15,19 +17,23 @@ const data = {
   }
 
 class PersonalHome extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
-            diabetes : '',
-            hgraph: '',
-            pneumonia: '',
-            dGData : '',
-            hGData: '',
-            pGData: ''
+            diabetes : {},
+            hgraph: {},
+            pneumonia: {},
+            dGData : {},
+            hGData: {},
+            pGData: {},
+            dataishere : false
         };
+
       }
     
     componentDidMount(){
+        this._isMounted = true;
         fetch("/userdata", {
             method:"GET",
             cache: "no-cache",
@@ -38,13 +44,15 @@ class PersonalHome extends Component {
         .then(json => {
             console.log(json)
             this.setState({
-              diabetes: json['diabetesdata'], 
+              diabetes: json['diabetesdata'],
+              dataishere : true, 
               hgraph: json['hgraphdata'], 
               pneumonia: json['pneumoniadata'], 
             })
             console.log(this.state.diabetes);
             console.log(this.state.hgraph);
-            console.log(this.state.pneumonia);
+            console.log(this.state.pneumonia); 
+            
             let p_y_values = []
             let p_x_values = []
             let d_y_values = []
@@ -105,49 +113,162 @@ class PersonalHome extends Component {
                 ],
               }
             })
-        })
+            console.log(this.state);
+          })
       }
-    
 
       render() {
+        if(this.state.dataishere  === true){
           return (
-              <div>
-
-                  <h2 className='p-3'>Hgraph Data</h2>
-                  <div style={{maxWidth:'50vw', maxHeight:'50vh', width:'50vw', height:'50vh'}}>
+              <div style={{width:'100vw', maxWidth:'100vw'}}>
+                  <br></br>
+                  <h2 className='pt-3 pb-3'>Hgraph Data</h2>                  
+                  <div style={{maxWidth:'48vw', maxHeight:'50vh', display:'flex', width:'48vw', height:'50vh'}}>
                     <Line 
                         data={this.state.hGData} 
                         options={{ maintainAspectRatio: false }}
                         width={50}
                         height={50}
+                        style={{ float:'left'}} 
                     />
+                    <Table style={{fontWeight: 'bold', float:'right'}} striped hover>
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Health Score</th>
+                        </tr>
+                      </thead>
+                
+                      <tbody>
+                        <tr>
+                          <td style={{color:'red'}}>{this.state.hgraph.slice(-5,)[0].date}</td>
+                          <td style={{color:'green'}}>{this.state.hgraph.slice(-5,)[0].score}</td>
+                        </tr>
+                        <tr>
+                          <td style={{color:'red'}}>{this.state.hgraph.slice(-5,)[1].date}</td>
+                          <td style={{color:'green'}}>{this.state.hgraph.slice(-5,)[1].score}</td>
+                        </tr>
+                        <tr>
+                          <td style={{color:'red'}}>{this.state.hgraph.slice(-5,)[2].date}</td>
+                          <td style={{color:'green'}}>{this.state.hgraph.slice(-5,)[2].score}</td>
+                        </tr>
+                        <tr>
+                          <td style={{color:'red'}}>{this.state.hgraph.slice(-5,)[3].date}</td>
+                          <td style={{color:'green'}}>{this.state.hgraph.slice(-5,)[3].score}</td>
+                        </tr>
+                        <tr>
+                          <td style={{color:'red'}}>{this.state.hgraph.slice(-5,)[4].date}</td>
+                          <td style={{color:'green'}}>{this.state.hgraph.slice(-5,)[4].score}</td>
+                        </tr>
+                        
+                      </tbody>
+
+                    </Table>
                   </div>
 
 
-                  <h2 className='p-3'>Diabetes Data</h2>
-                  <div style={{maxWidth:'50vw', maxHeight:'50vh', marginLeft:'48.0%' , width:'50vw', height:'50vh'}}>
+                  <br></br>
+                  <br></br>
+                  <h2 className='pt-3 pd-3'>Diabetes Data</h2>
+                  <br></br>
+                  <div style={{maxWidth:'48vw', maxHeight:'50vh',  display:'flex', width:'48vw', height:'50vh'}}>
+
+                    <Table style={{fontWeight: 'bold', float:'left'}} striped hover>
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Diabetes Prediction</th>
+                        </tr>
+                      </thead>
+                
+                      <tbody>
+                        <tr>
+                          <td style={{color:'red'}}>{this.state.diabetes.slice(-5,)[0].date}</td>
+                          <td style={{color:'green'}}>{this.state.diabetes.slice(-5,)[0].prediction * 100}</td>
+                        </tr>
+                        <tr>
+                          <td style={{color:'red'}}>{this.state.diabetes.slice(-5,)[1].date}</td>
+                          <td style={{color:'green'}}>{this.state.diabetes.slice(-5,)[1].prediction * 100}</td>
+                        </tr>
+                        <tr>
+                          <td style={{color:'red'}}>{this.state.diabetes.slice(-5,)[2].date}</td>
+                          <td style={{color:'green'}}>{this.state.diabetes.slice(-5,)[2].prediction * 100}</td>
+                        </tr>
+                        <tr>
+                          <td style={{color:'red'}}>{this.state.diabetes.slice(-5,)[3].date}</td>
+                          <td style={{color:'green'}}>{this.state.diabetes.slice(-5,)[3].prediction * 100}</td>
+                        </tr>
+                        <tr>
+                          <td style={{color:'red'}}>{this.state.diabetes.slice(-5,)[4].date}</td>
+                          <td style={{color:'green'}}>{this.state.diabetes.slice(-5,)[4].prediction * 100}</td>
+                        </tr>
+                        
+                      </tbody>
+
+                    </Table>
                     <Line 
                         data={this.state.dGData} 
                         options={{ maintainAspectRatio: false }}
                         width={50}
                         height={50}
+                        style={{ float:'right'}} 
                     />
                   </div>
 
-
-                  <h2 className='p-3'>Pneumonia Data</h2>
-                  <div style={{maxWidth:'50vw', maxHeight:'50vh', width:'50vw', height:'50vh'}}>
+                  <br></br>
+                  <br></br>
+                  <h2 className='pt-3 pd-3'>Pneumonia Data</h2>
+                  <br></br>
+                  <div style={{maxWidth:'48vw', maxHeight:'50vh',display:'flex' , width:'48vw', height:'50vh'}}>
                     <Line 
                         data={this.state.pGData} 
                         options={{ maintainAspectRatio: false }}
                         width={50}
                         height={50}
+                    style={{ float:'left'}} 
                     />
+                    <Table style={{fontWeight: 'bold', float:'right'}} striped hover>
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Pneumonia Prediction</th>
+                        </tr>
+                      </thead>
+              
+                      <tbody>
+                      <tr>
+                          <td style={{color:'red'}}>{this.state.pneumonia.slice(-5,)[0].date}</td>
+                          <td style={{color:'green'}}>{this.state.pneumonia.slice(-5,)[0].prediction}</td>
+                        </tr>
+                        <tr>
+                          <td style={{color:'red'}}>{this.state.pneumonia.slice(-5,)[1].date}</td>
+                          <td style={{color:'green'}}>{this.state.pneumonia.slice(-5,)[1].prediction}</td>
+                        </tr>
+                        <tr>
+                          <td style={{color:'red'}}>{this.state.pneumonia.slice(-5,)[2].date}</td>
+                          <td style={{color:'green'}}>{this.state.pneumonia.slice(-5,)[2].prediction}</td>
+                        </tr>
+                        <tr>
+                          <td style={{color:'red'}}>{this.state.pneumonia.slice(-5,)[3].date}</td>
+                          <td style={{color:'green'}}>{this.state.pneumonia.slice(-5,)[3].prediction}</td>
+                        </tr>
+                        <tr>
+                          <td style={{color:'red'}}>{this.state.pneumonia.slice(-5,)[4].date}</td>
+                          <td style={{color:'green'}}>{this.state.pneumonia.slice(-5,)[4].prediction}</td>
+                        </tr>
+                        
+                      </tbody>
+
+                    </Table>
                   </div>
 
 
               </div>
           );
+        }
+        else{
+          return <></>
+        }
       }
     }
 

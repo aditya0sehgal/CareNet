@@ -129,9 +129,10 @@ export class DiabetesForm extends Component {
 
             { this.state.result !== '' && 
                 <div style={{maxWidth:'98.0vw', maxHeight:'70vh', width:'98.0vw', height:'70vh'}}>
-                    <h3 className='pt-1' style={{color:'red'}}>{this.state.result.res*100} %</h3>
-                    <h6>Idhar chart ayega doughnut wala</h6>
-                    <Doughnut width={100} height={60} options={{ maintainAspectRatio: false }} data={data} />
+                    <h3 className='pt-3' style={{color:'red'}}>{this.state.result.res*100} %</h3>
+                    {/* UNCOMMENT BELOW PART LATER */}
+                    {/* <h6>Idhar chart ayega doughnut wala</h6>
+                    <Doughnut width={100} height={60} options={{ maintainAspectRatio: false }} data={data} /> */}
                 </div> 
             }
 

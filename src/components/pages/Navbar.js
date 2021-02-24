@@ -82,14 +82,14 @@ function Navbar() {
             </Link>
            :
             <Link style={{textDecoration: 'none'}} className='btn-link'>
-                {user.user.toUpperCase()} &nbsp;
+                
                 <Button onClick={() => fetch('/logout')
                 .then(response => response.json())
                 .then(data => {
                     console.log(data); 
                     window.location.replace('/')
                     }
-                )}>Logout</Button>
+                )}> Logout - {user.user.toUpperCase()} </Button>
             </Link>
             
            }
