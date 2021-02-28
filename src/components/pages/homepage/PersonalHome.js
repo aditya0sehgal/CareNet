@@ -122,8 +122,8 @@ class PersonalHome extends Component {
           return (
               <div style={{width:'100vw', maxWidth:'100vw'}}>
                   <br></br>
-                  <h2 className='pt-3 pb-3'>Hgraph Data</h2>                  
-                  <div style={{maxWidth:'48vw', maxHeight:'50vh', display:'flex', width:'48vw', height:'50vh'}}>
+                  <h2 className='pt-3 pb-3'>H-Graph Data</h2>                  
+                  <div style={{maxWidth:'50vw', maxHeight:'50vh', display:'flex', width:'50vw', height:'50vh'}}>
                     <Line 
                         data={this.state.hGData} 
                         options={{ maintainAspectRatio: false }}
@@ -131,7 +131,7 @@ class PersonalHome extends Component {
                         height={50}
                         style={{ float:'left'}} 
                     />
-                    <Table style={{fontWeight: 'bold', float:'right'}} striped hover>
+                    <Table style={{fontWeight: 'bold', float:'right',width:'48vw', height:'50vh'}} striped hover>
                       <thead>
                         <tr>
                           <th>Date</th>
@@ -171,9 +171,9 @@ class PersonalHome extends Component {
                   <br></br>
                   <h2 className='pt-3 pd-3'>Diabetes Data</h2>
                   <br></br>
-                  <div style={{maxWidth:'48vw', maxHeight:'50vh',  display:'flex', width:'48vw', height:'50vh'}}>
+                  <div style={{maxWidth:'50vw', maxHeight:'50vh',  display:'flex', width:'50vw', height:'50vh'}}>
 
-                    <Table style={{fontWeight: 'bold', float:'left'}} striped hover>
+                    <Table style={{fontWeight: 'bold', float:'left',width:'48vw', height:'50vh'}} striped hover>
                       <thead>
                         <tr>
                           <th>Date</th>
@@ -219,7 +219,7 @@ class PersonalHome extends Component {
                   <br></br>
                   <h2 className='pt-3 pd-3'>Pneumonia Data</h2>
                   <br></br>
-                  <div style={{maxWidth:'48vw', maxHeight:'50vh',display:'flex' , width:'48vw', height:'50vh'}}>
+                  <div style={{maxWidth:'50vw', maxHeight:'50vh',display:'flex' , width:'50vw', height:'50vh'}}>
                     <Line 
                         data={this.state.pGData} 
                         options={{ maintainAspectRatio: false }}
@@ -227,7 +227,7 @@ class PersonalHome extends Component {
                         height={50}
                     style={{ float:'left'}} 
                     />
-                    <Table style={{fontWeight: 'bold', float:'right'}} striped hover>
+                    <Table style={{fontWeight: 'bold', float:'right',width:'48vw', height:'50vh'}} striped hover>
                       <thead>
                         <tr>
                           <th>Date</th>
