@@ -6,7 +6,7 @@ import HGraph, {
 
 import data2017 from "../../data.json";
 import '../../HGraph.css';
-import { Button, UncontrolledPopover, PopoverHeader, PopoverBody, Table  } from 'reactstrap';
+import { Table  } from 'reactstrap';
 
 class Hgraph extends React.Component {
   constructor(props) {
@@ -183,78 +183,11 @@ class Hgraph extends React.Component {
     // backgroundImage:"url('healthgraph.jpg')
     return (
       <div className="App">
-      <div className="root-container" style={{ height: this.state.formsubmit ? '270vh' :'150vh' }} >
+      <div className="root-container" style={{ height: this.state.formsubmit ? '350vh' :'150vh' }} >
                        
           <h1>
             Health Score 
           </h1>
-            
-          {/* <UncontrolledPopover trigger="focus" placement="right" target="PopoverFocus">
-            <PopoverHeader>Healthy range values for each parameter.</PopoverHeader>
-            <PopoverBody>
-              <Table bordered>
-                <thead>
-                  <tr>
-                    
-                    <th>Parameter</th>
-                    <th>Healthy Range</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    
-                    <td>Total Cholesterol</td>
-                    <td>0.25-0.75</td>
-                  </tr>
-                  <tr>
-                    
-                    <td>Glucose</td>
-                    <td>61-100</td>
-                  </tr>
-                  <tr>
-                    
-                    <td>Systolic Blood Pressure</td>
-                    <td>99-148</td>
-                  </tr>
-                  <tr>
-                 
-                    <td>Diastolic Blood Pressure</td>
-                    <td>65-95</td>
-                  </tr>
-                  <tr>
-                    
-                    <td>Alcohol Use</td>
-                    <td>0-1</td>
-                  </tr>
-                  <tr>
-                    
-                    <td>Nicotine Use</td>
-                    <td>0-1</td>
-                  </tr>
-                  <tr>
-                    
-                    <td>Waist Circumference</td>
-                    <td>30.0-34.5</td>
-                  </tr>
-                  <tr>
-                    
-                    <td>Exercise</td>
-                    <td>3-12</td>
-                  </tr>
-                  <tr>
-                    
-                    <td>Sleep</td>
-                    <td>7.1-8.0</td>
-                  </tr>
-                  <tr>
-                    
-                    <td>Weight</td>
-                    <td>170-205</td>
-                  </tr>
-                </tbody>
-              </Table>
-            </PopoverBody>
-          </UncontrolledPopover> */}
           {/* <Button color="primary">hello</Button> */}
           <div className='box-container' >
             {/* <form action='/healthscore' method='POST' onSubmit={this.handleClick}> */}

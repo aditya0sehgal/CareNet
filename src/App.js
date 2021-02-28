@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react"; 
 import './App.css';
-import logo from './logo.svg';
 
 import Navbar from './components/pages/Navbar'
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
@@ -17,6 +16,7 @@ function App() {
   useEffect(()=> {
     fetch('/api').then(response => response.json()
     ).then(data => setInitialData(data))
+    console.log(initialData);
   },[]);
 
   return (

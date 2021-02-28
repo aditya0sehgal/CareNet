@@ -2,41 +2,33 @@ import React, { Component } from 'react'
 import '../../pages/Register/style.css'
 import { Doughnut } from '@reactchartjs/react-chart.js'
 
-const data = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [
-      {
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-        ],
-        borderWidth: 1,
-      },
-    ],
-  }
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 
 export class DiabetesForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            result: ''
+            result: '',
+            modal: false,
+            graphdata: {}
         };
     
+        this.toggle = this.toggle.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleRecomSubmit = this.handleRecomSubmit.bind(this);
+      }
+
+      toggle() {
+        this.setState({ modal: !this.state.modal });
+      }
+
+      handleRecomSubmit(event) {
+        event.preventDefault();
+        const data = new FormData(event.target);
+        const value = Object.fromEntries(data.entries());
+        console.log( JSON.stringify(value) )
+        console.log("making request", data)        
+        console.log(this.state.result)        
       }
 
       handleSubmit(event) {
@@ -54,12 +46,34 @@ export class DiabetesForm extends Component {
               .then((body) => {
               console.log(this.state);
               console.log(body);
-              this.setState({ 'result': body })
+              this.setState({ 
+                  'result': body ,
+                  'graphdata' : {
+                    labels: ['Diabetes Prediction', ' '],
+                    datasets: [
+                      {
+                        label: 'Prediction %',
+                        data: [Math.ceil(body.res*100), (100-(Math.ceil(body.res*100)))],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 255, 255, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(211,211,211, 1)',
+                        ],
+                        borderWidth: 1,
+                      },
+                    ],       
+                    text: Math.ceil(body.res*100)
+                  }
+              })
               console.log(this.state);
             });
           });
   
       }
+
 
     render() {
         return (
@@ -129,10 +143,56 @@ export class DiabetesForm extends Component {
 
             { this.state.result !== '' && 
                 <div style={{maxWidth:'98.0vw', maxHeight:'70vh', width:'98.0vw', height:'70vh'}}>
-                    <h3 className='pt-3' style={{color:'red'}}>{this.state.result.res*100} %</h3>
+                    <Doughnut width={100} height={60} options={{ maintainAspectRatio: false }} data={this.state.graphdata} />
+                    
+                    <br></br>
+                    <h1 className='pt-3' style={{color:'blue'}}>{  Math.ceil(this.state.result.res*100) } %</h1>
+                    
                     {/* UNCOMMENT BELOW PART LATER */}
-                    {/* <h6>Idhar chart ayega doughnut wala</h6>
-                    <Doughnut width={100} height={60} options={{ maintainAspectRatio: false }} data={data} /> */}
+                    <button className='login-btn' style={{marginBottom:'2%'}} onClick={this.toggle}>Get Recommendations</button>
+                    <br></br>
+                    
+                    <Modal isOpen={this.state.modal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
+                        toggle={this.toggle}>
+                        <ModalHeader toggle={this.toggle}>Questionnaire</ModalHeader>
+                        <ModalBody>
+                            Please fill out this questionnaire to get personalised recommendations.
+                            <form onSubmit={this.handleRecomSubmit}>
+                                <div className='box'>
+                                    <div className='input-group'>
+                                        <label htmlFor='Smoking'>
+                                            Smoking
+                                        </label>
+                                        <input type='text' name='Smoking' className='login-input' />
+                                    </div>
+                                
+                                    <div className='input-group'>
+                                        <label htmlFor='Sleep'>
+                                            Sleep
+                                        </label>
+                                        <input type='text' name='Sleep' className='login-input' />
+                                    </div>
+                                
+                                    <div className='input-group'>
+                                        <label htmlFor='Exercise'>
+                                            Exercise
+                                        </label>
+                                        <input type='text' name='Exercise' className='login-input' />
+                                    </div>
+                                
+                                    <div className='input-group'>
+                                        <label htmlFor='Water'>
+                                            Water
+                                        </label>
+                                        <input type='text' name='Water' className='login-input' />
+                                    </div>
+                                </div>
+                                <button className='login-btn' type='submit'>Get Recommendations</button>
+                            </form>
+                        </ModalBody>
+                        <ModalFooter>
+                        </ModalFooter>
+                    </Modal>
                 </div> 
             }
 

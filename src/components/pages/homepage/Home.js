@@ -1,9 +1,7 @@
 import Dashboard from '../../Dashboard'
 import React,{useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
-import { Button  } from 'reactstrap';
 import PersonalHome from '../homepage/PersonalHome'
-import {homeObjFour, homeObjOne, homeObjThree, homeObjTwo} from './Data'
+import {homeObjFour, homeObjOne, homeObjTwo} from './Data'
 
 function Home() {
 
