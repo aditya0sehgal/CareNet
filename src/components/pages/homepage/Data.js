@@ -21,7 +21,7 @@ export const homeObjOne = {
     headline: 'Take a Medical Diagnostic Test',
     description:
       'We have you covered no matter where you are located. Take a diagnostic Test to check if you suffer from Diabetes or Pneumonia.', 
-    buttonLabel: 'Take test',
+    buttonLabel: 'Take Test',
     imgStart: '',
     img: 'images/svg-5.svg',
     alt: 'Vault',

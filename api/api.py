@@ -240,6 +240,61 @@ def predict():
     #         "res" : 0.66
     #     }
 
+@app.route('/diabetes-recom', methods=['POST', 'GET'])
+def diaRecom():
+    if request.method == 'POST':
+        smoking = str(request.form.get('Smoking', False)).lower()
+        sleep = float(request.form.get('Sleep', False))
+        exercise = int(request.form.get('Exercise', False))
+        water = float(request.form.get('Water', False))
+        glucose = int(request.form.get('glucose', False))
+        bmi = float(request.form.get('bmi', False))
+        age = int(request.form.get('age', False))
+        recom={}
+        
+        if smoking=="y":
+            recom['smoking']="Smoking can make managing and regulating insulin levels more difficult because high levels of nicotine can lessen the effectiveness of insulin, causing smokers to need more insulin to regulate blood sugar levels. It has also been found that smokers are 30 to 40 percent more likely to develop type 2 diabetes than nonsmokers. Thus, quitting smoking would certainly have a positive impact on your health."
+        
+        if exercise < 150:
+            recom['exercise']="Get at least 150 to 300 minutes of moderate to vigorous intensity aerobic activity per week. Exercises like walking, jogging, swimming could be tried."
+        
+        if sleep < 7.0:
+            recom['sleep']="People with diabetes report sleeping less than 7 hours a night puts them at a higher risk of having elevated blood sugar. In addition to raising blood sugar levels, sleep deprivation also raises the risk of developing insulin resistance in the first place. Thus avoiding caffeinated beverages at night, Stick to consistent sleep times and indulging in regular physical activity would help."
+        
+        if water < 2.6:
+            recom['water']="When it comes to hydration, water is the best option for people with diabetes as it won’t raise your blood sugar levels. Drinking enough water can help your body eliminate excess glucose through urine. Thus, drink at least 2.6L of water everyday."
+        
+        if glucose<=140:
+            recom['glucose']="Glucose level is well within the nominal range."
+        elif 140 < glucose <= 199:
+            recom['glucose'] = "Glucose level indicates the chances of being prediabetic. Choose foods low in fat and calories and high in fiber. Eat a variety of foods to help you achieve your goals without compromising taste or nutrition."
+        elif glucose >= 200:
+            recom['glucose'] = "Glucose level is very high as per standard values. Make sure that you have no ketones in your urine and that you are well-hydrated." 
+
+        if age >= 40:
+            recom['age'] = "As you are 40+, the risk of diabetes increases and bulk of the cases are reported in this range. Thus, keep a check on your blood pressure and weight and maintain a balanced diet."
+
+        if 18.5<= bmi <= 24.9:
+            recom['bmi'] = "BMI value is reasonably normal. Maintain it by indulging in physical activity regularly."
+        elif 25.0 <= bmi <= 29.9:
+            recom['bmi'] = "BMI value indicates you are overweight. Cut down on the intake of food having high levels of fats and calories."
+        elif bmi >= 30.0:
+            recom['bmi'] = "BMI value is abnormally high and indicates obesity. Eat healthy snacks and a healthy, balanced meal that's low in fat and calories and limit the amount of a particular food group, such as high-carbohydrate or full-fat foods. Keep a track of your weight."
+        elif bmi < 18.5:
+            recom['bmi'] = "BMI value falls in the underweight category. Thus, nutrient rich food is a must for you.You may also include moderately calorie-rich food items in your diet."
+        
+        return {
+                    'smoking': recom['smoking'] if 'smoking' in recom.keys(),  
+                    'exercise': recom['exercise'] if 'exercise' in recom.keys(),
+                    'water': recom['water'] if 'water' in recom.keys(),
+                    'sleep': recom['sleep'] if 'sleep' in recom.keys(),
+                    'glucose': recom['glucose'] if 'glucose' in recom.keys(),
+                    'bmi': recom['bmi'] if 'bmi' in recom.keys(),
+                    'age': recom['age'] if 'age' in recom.keys(),
+                }   
+# There's an error here. Try importing json as import json and return- json.dumps(recom).
+
+
 @app.route('/healthscore', methods=['POST'])
 def healthscore():
     if request.method == 'POST':

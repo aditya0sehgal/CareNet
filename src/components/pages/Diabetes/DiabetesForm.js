@@ -156,33 +156,33 @@ export class DiabetesForm extends Component {
                         toggle={this.toggle}>
                         <ModalHeader toggle={this.toggle}>Questionnaire</ModalHeader>
                         <ModalBody>
-                            Please fill out this questionnaire to get personalised recommendations.
+                            Please fill out this Questionnaire to get Personalised Recommendations.
                             <form onSubmit={this.handleRecomSubmit}>
                                 <div className='box'>
                                     <div className='input-group'>
                                         <label htmlFor='Smoking'>
-                                            Smoking
+                                            Do you Smoke? (Y/N)
                                         </label>
                                         <input type='text' name='Smoking' className='login-input' />
                                     </div>
                                 
                                     <div className='input-group'>
                                         <label htmlFor='Sleep'>
-                                            Sleep
+                                        Enter the duration of sleep in Hours/Night.
                                         </label>
                                         <input type='text' name='Sleep' className='login-input' />
                                     </div>
                                 
                                     <div className='input-group'>
                                         <label htmlFor='Exercise'>
-                                            Exercise
+                                        Enter the duration of Exercise in Minutes/Week.
                                         </label>
                                         <input type='text' name='Exercise' className='login-input' />
                                     </div>
                                 
                                     <div className='input-group'>
                                         <label htmlFor='Water'>
-                                            Water
+                                        Enter the amount of water consumed daily in Litres.
                                         </label>
                                         <input type='text' name='Water' className='login-input' />
                                     </div>
