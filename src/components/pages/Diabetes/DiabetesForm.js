@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import '../../pages/Register/style.css'
 import { Doughnut } from '@reactchartjs/react-chart.js'
+import {Link} from 'react-router-dom';
+
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 
@@ -10,7 +12,9 @@ export class DiabetesForm extends Component {
         this.state = {
             result: '',
             modal: false,
-            graphdata: {}
+            graphdata: {},
+            recomsubmitted : false,
+            recom : {}
         };
     
         this.toggle = this.toggle.bind(this);
@@ -24,11 +28,46 @@ export class DiabetesForm extends Component {
 
       handleRecomSubmit(event) {
         event.preventDefault();
-        const data = new FormData(event.target);
-        const value = Object.fromEntries(data.entries());
-        console.log( JSON.stringify(value) )
-        console.log("making request", data)        
+        const recomdata = new FormData(event.target);
+        const recomvalue = Object.fromEntries(recomdata.entries());
+        console.log( JSON.stringify(recomvalue) )
+        console.log("making request", recomvalue)        
         console.log(this.state.result)        
+        recomvalue.age = this.state.result.age;
+        recomvalue.glucose = this.state.result.glucose;
+        recomvalue.bmi = this.state.result.bmi;
+        console.log(recomvalue);
+
+        fetch('/diabetes-recom', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+              },
+            body: JSON.stringify(recomvalue),
+          }).then((response) => {
+              response.json()
+              .then((body) => {
+              console.log(this.state);
+              console.log(body);
+              this.setState({ 
+                  'recom': body ,
+                  'recomsubmitted' : true,
+                  modal: !this.state.modal
+              })
+              console.log(this.state);
+              console.log(Object.keys(this.state.recom));
+            //   alert(JSON.stringify(this.state.recom))
+              alert(
+                'Recommendations for you : \n'+
+                Object.keys(this.state.recom).map((key, i) => (
+                this.state.recom[key] !== '-' ?
+                (' => '+this.state.recom[key]+'\n \n' ): ''
+                // )
+                ))
+                )
+            });
+          });
+
       }
 
       handleSubmit(event) {
@@ -149,9 +188,30 @@ export class DiabetesForm extends Component {
                     <h1 className='pt-3' style={{color:'blue'}}>{  Math.ceil(this.state.result.res*100) } %</h1>
                     
                     {/* UNCOMMENT BELOW PART LATER */}
-                    <button className='login-btn' style={{marginBottom:'2%'}} onClick={this.toggle}>Get Recommendations</button>
-                    <br></br>
                     
+                    { this.state.result.sessionuser >= 1 ? 
+                        (
+                        <button className='login-btn' style={{marginBottom:'2%'}} onClick={this.toggle}>Get Recommendations</button>
+                        ) :
+                        (
+                        <Link to='/signup' className='btn-link'>
+                            <button className='login-btn' style={{marginBottom:'2%'}}>Login to Get Recommendations</button>
+                        </Link>
+                        )
+                    }
+                    
+                    <br></br>
+                    {this.state.recomsubmitted === 'true' &&
+                                <h4>
+                                {Object.keys(this.state.recom).map((key, i) => (
+                                    this.state.recom[key] !== '-' && <p key={key}>
+                                        <span>{key}</span>
+                                        <span>{this.state.recom[key]}</span>
+                                    </p>
+                                    ))
+                                }
+                                </h4> 
+                    }
                     <Modal isOpen={this.state.modal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
                         toggle={this.toggle}>
                         <ModalHeader toggle={this.toggle}>Questionnaire</ModalHeader>
@@ -186,11 +246,12 @@ export class DiabetesForm extends Component {
                                         </label>
                                         <input type='text' name='Water' className='login-input' />
                                     </div>
+                                <button className='login-btn'>Get Recommendations</button>
                                 </div>
-                                <button className='login-btn' type='submit'>Get Recommendations</button>
                             </form>
                         </ModalBody>
                         <ModalFooter>
+                            
                         </ModalFooter>
                     </Modal>
                 </div> 

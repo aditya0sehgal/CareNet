@@ -222,6 +222,7 @@ def predict():
                     "dpf":dpf,
                     "age":age,
                     "res":res,
+                    "sessionuser" : len(session)
                 }   
         return render_template('prediction.html', formdata={ 
                     "preg": preg,
@@ -234,22 +235,17 @@ def predict():
                     "age":age,
                     }, res=res)
 
-
-    # if request.method == 'GET':
-    #     return {
-    #         "res" : 0.66
-    #     }
-
 @app.route('/diabetes-recom', methods=['POST', 'GET'])
 def diaRecom():
     if request.method == 'POST':
-        smoking = str(request.form.get('Smoking', False)).lower()
-        sleep = float(request.form.get('Sleep', False))
-        exercise = int(request.form.get('Exercise', False))
-        water = float(request.form.get('Water', False))
-        glucose = int(request.form.get('glucose', False))
-        bmi = float(request.form.get('bmi', False))
-        age = int(request.form.get('age', False))
+        print(request.form.get('Smoking', False), request.form.get('Exercise', False),request.form.get('age', False), request.json['Smoking'])
+        smoking = str(request.json['Smoking']).lower()
+        sleep = float(request.json['Sleep'])
+        exercise = int(request.json['Exercise'])
+        water = float(request.json['Water'])
+        glucose = int(request.json['glucose'])
+        bmi = float(request.json['bmi'])
+        age = int(request.json['age'])
         recom={}
         
         if smoking=="y":
@@ -284,13 +280,14 @@ def diaRecom():
             recom['bmi'] = "BMI value falls in the underweight category. Thus, nutrient rich food is a must for you.You may also include moderately calorie-rich food items in your diet."
         
         return {
-                    'smoking': recom['smoking'] if 'smoking' in recom.keys(),  
-                    'exercise': recom['exercise'] if 'exercise' in recom.keys(),
-                    'water': recom['water'] if 'water' in recom.keys(),
-                    'sleep': recom['sleep'] if 'sleep' in recom.keys(),
-                    'glucose': recom['glucose'] if 'glucose' in recom.keys(),
-                    'bmi': recom['bmi'] if 'bmi' in recom.keys(),
-                    'age': recom['age'] if 'age' in recom.keys(),
+                    'smoking': recom['smoking'] if 'smoking' in recom.keys() else '-',  
+                    'exercise': recom['exercise'] if 'exercise' in recom.keys()  else '-',
+                    'water': recom['water'] if 'water' in recom.keys()  else '-',
+                    'sleep': recom['sleep'] if 'sleep' in recom.keys()  else '-',
+                    'glucose': recom['glucose'] if 'glucose' in recom.keys()  else '-',
+                    'bmi': recom['bmi'] if 'bmi' in recom.keys()  else '-',
+                    'age': recom['age'] if 'age' in recom.keys()  else '-',
+                    
                 }   
 # There's an error here. Try importing json as import json and return- json.dumps(recom).
 
