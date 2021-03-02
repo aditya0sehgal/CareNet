@@ -35,19 +35,20 @@ class Hgraph extends React.Component {
       datavalue:[],
       modal: false,
       recomsubmitted : false,
-      recom : {}
+      recom : {},
+      logged: {}
     }
 
-    console.log(this.state.data);
-    this.card = React.createRef();
-    this.toggle = this.toggle.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleRecomSubmit = this.handleRecomSubmit.bind(this);
-  }
+      console.log(this.state.data);
+      this.card = React.createRef();
+      this.toggle = this.toggle.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleRecomSubmit = this.handleRecomSubmit.bind(this);
+    }
 
-        toggle() {
-        this.setState({ modal: !this.state.modal });
-      }
+      toggle() {
+      this.setState({ modal: !this.state.modal });
+     }
 
       handleRecomSubmit(event) {
         event.preventDefault();
@@ -55,10 +56,17 @@ class Hgraph extends React.Component {
         const recomvalue = Object.fromEntries(recomdata.entries());
         console.log( JSON.stringify(recomvalue) )
         console.log("making request", recomvalue)        
-        console.log(this.state.result)        
-        recomvalue.age = this.state.result.age;
-        recomvalue.glucose = this.state.result.glucose;
-        recomvalue.bmi = this.state.result.bmi;
+        console.log(this.state.datavalue)     
+        recomvalue.alcoholUse = this.state.datavalue.alcoholUse;
+        recomvalue.bloodPressureDiastolic = this.state.datavalue.bloodPressureDiastolic;
+        recomvalue.bloodPressureSystolic = this.state.datavalue.bloodPressureSystolic;
+        recomvalue.exercise = this.state.datavalue.exercise;
+        recomvalue.glucose = this.state.datavalue.glucose;
+        recomvalue.sleep = this.state.datavalue.sleep;
+        recomvalue.totalCholesterol = this.state.datavalue.totalCholesterol;
+        recomvalue.waistCircumference = this.state.datavalue.waistCircumference;
+        recomvalue.weight = this.state.datavalue.weight;
+        recomvalue.nicotineUse = this.state.datavalue.nicotineUse;
         console.log(recomvalue);
 
         fetch('/hgraph-recom', {
@@ -92,24 +100,24 @@ class Hgraph extends React.Component {
           });
 
       }
-  convertDataSet = (data) => {
-    return data.map(d => {
-      const converted = hGraphConvert('male', d.metric, d);
-      converted.id = d.metric;
-      if (d.children) {
-        converted.children = d.children.map(c => {
-          const convertedChild = hGraphConvert('male', c.metric, c);
-          convertedChild.parentKey = c.parentKey;
-          convertedChild.id = c.metric;
-          console.log(convertedChild);
-          return convertedChild;
-        })
-      }
-      converted.value = d.value;
-      // console.log(converted);
-      return converted;
-    });
-  }
+    convertDataSet = (data) => {
+      return data.map(d => {
+        const converted = hGraphConvert('male', d.metric, d);
+        converted.id = d.metric;
+        if (d.children) {
+          converted.children = d.children.map(c => {
+            const convertedChild = hGraphConvert('male', c.metric, c);
+            convertedChild.parentKey = c.parentKey;
+            convertedChild.id = c.metric;
+            console.log(convertedChild);
+            return convertedChild;
+          })
+        }
+        converted.value = d.value;
+        // console.log(converted);
+        return converted;
+      });
+    }
 
   componentDidMount() {
     this.updateWindowDimensions();
@@ -202,12 +210,6 @@ class Hgraph extends React.Component {
       historyData: yearData[0].data[0],
       formsubmit: true
     })
-    // this.state = {
-    //   yearData: yearData,
-    //   data: yearData[0],
-    //   historyData: yearData[0].data[0],
-    //   formsubmit: true
-    // }
 
     // this.setState({formsubmit: true}) 
     console.log(this.state);
@@ -223,6 +225,9 @@ class Hgraph extends React.Component {
     .then(response => response.json())
     .then(data => {
       console.log('Success:', data);
+      this.setState({
+        logged : data
+      })
     })
     .catch((error) => {
       console.error('Error:', error);
@@ -430,14 +435,22 @@ class Hgraph extends React.Component {
                 </tbody>
               </Table>
               
-              <button className='login-btn' style={{marginBottom:'2%'}} onClick={this.toggle}>Get Recommendations</button>
-
-              <Modal isOpen={this.state.modal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
+              { this.state.logged.sessionuser >= 1 ? 
+                  (
+                  <button className='login-btn' style={{marginBottom:'2%'}} onClick={this.toggle}>Get Recommendations</button>
+                  ) :
+                  (
+                  <Link to='/signup' className='btn-link'>
+                      <button className='login-btn' style={{marginBottom:'2%'}}>Login to Get Recommendations</button>
+                  </Link>
+                  )
+              }
+              <Modal isOpen={this.state.modal} modalTransition={{ timeout: 300 }} backdropTransition={{ timeout: 700 }}
                         toggle={this.toggle}>
                         <ModalHeader toggle={this.toggle}>Questionnaire</ModalHeader>
                         <ModalBody>
                             Please fill out this Questionnaire to get Personalised Recommendations.
-                            <form >
+                            <form onSubmit={this.handleRecomSubmit}>
                                 <div className='box'>
                                     <div className='input-group'>
                                         <label htmlFor='Age'>

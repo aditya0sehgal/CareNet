@@ -335,7 +335,7 @@ def hgraphRecom():
             rec['exercise'] = "Exercise strengthens your heart and improves your circulation. The increased blood flow raises the oxygen levels in your body. This helps lower your risk of heart diseases such as high cholesterol, coronary artery disease, and heart attack. Regular exercise can also lower your blood pressure and triglyceride levels. Thus, for a healthy person on weekly basis, the time devoted for exercise should range from 3-12hrs."
 
         if sleep < 7:
-            rec['sleep'] = "Exercise strengthens your heart and improves your circulation. The increased blood flow raises the oxygen levels in your body. This helps lower your risk of heart diseases such as high cholesterol, coronary artery disease, and heart attack. Regular exercise can also lower your blood pressure and triglyceride levels. Thus, for a healthy person on weekly basis, the time devoted for exercise should range from 3-12hrs."
+            rec['sleep'] = "People who report sleeping less than 7 hours a night puts them at a higher risk of having elevated blood sugar and hormonal imbalance. Sleep deprivation may cause a person to be more prone to infections, which may take longer to resolve, and respiratory diseases. Thus avoiding caffeinated beverages at night, Stick to consistent sleep times and indulging in regular physical activity would help. Meditation may also help to a certain extent."
 
         if waist > 34.5 :
             rec['waist'] = "Elevated waist circumference or waistline measurement is an indication of abdominal obesity and increased risk for heart disease, diabetes, high blood pressure, dyslipidemia (elevation of blood cholesterol, triglycerides or both) and nonalcoholic fatty liver disease. Eating more protein and fiber, Reducing added sugar intake,Getting more sleep, Reducing stress and drinking more water are some of the ways to reduce waist circumference."
@@ -388,7 +388,7 @@ def healthscore():
                     }
                 }
             )
-        return { 'state': 'Approved' }
+        return { 'state': 'Approved', "sessionuser" : len(session) }
 
 
 @app.route('/login', methods=['POST'])
