@@ -7,6 +7,8 @@ import HGraph, {
 import data2017 from "../../data.json";
 import '../../HGraph.css';
 import { Table  } from 'reactstrap';
+import {Link} from 'react-router-dom';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 
 class Hgraph extends React.Component {
   constructor(props) {
@@ -30,13 +32,66 @@ class Hgraph extends React.Component {
       historyOpen: false,
       historyData: [],
       formsubmit: false,
-      datavalue:[]
+      datavalue:[],
+      modal: false,
+      recomsubmitted : false,
+      recom : {}
     }
 
     console.log(this.state.data);
     this.card = React.createRef();
+    this.toggle = this.toggle.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleRecomSubmit = this.handleRecomSubmit.bind(this);
   }
 
+        toggle() {
+        this.setState({ modal: !this.state.modal });
+      }
+
+      handleRecomSubmit(event) {
+        event.preventDefault();
+        const recomdata = new FormData(event.target);
+        const recomvalue = Object.fromEntries(recomdata.entries());
+        console.log( JSON.stringify(recomvalue) )
+        console.log("making request", recomvalue)        
+        console.log(this.state.result)        
+        recomvalue.age = this.state.result.age;
+        recomvalue.glucose = this.state.result.glucose;
+        recomvalue.bmi = this.state.result.bmi;
+        console.log(recomvalue);
+
+        fetch('/hgraph-recom', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+              },
+            body: JSON.stringify(recomvalue),
+          }).then((response) => {
+              response.json()
+              .then((body) => {
+              console.log(this.state);
+              console.log(body);
+              this.setState({ 
+                  'recom': body ,
+                  'recomsubmitted' : true,
+                  modal: !this.state.modal
+              })
+              console.log(this.state);
+              console.log(Object.keys(this.state.recom));
+            //   alert(JSON.stringify(this.state.recom))
+              alert(
+                'Recommendations for you : \n'+
+                Object.keys(this.state.recom).map((key, i) => (
+                this.state.recom[key] !== '-' ?
+                (' => '+this.state.recom[key]+'\n \n' ): ''
+                // )
+                ))
+                )
+            });
+          });
+
+      }
   convertDataSet = (data) => {
     return data.map(d => {
       const converted = hGraphConvert('male', d.metric, d);
@@ -374,10 +429,50 @@ class Hgraph extends React.Component {
                   </tr>
                 </tbody>
               </Table>
-        
+              
+              <button className='login-btn' style={{marginBottom:'2%'}} onClick={this.toggle}>Get Recommendations</button>
+
+              <Modal isOpen={this.state.modal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
+                        toggle={this.toggle}>
+                        <ModalHeader toggle={this.toggle}>Questionnaire</ModalHeader>
+                        <ModalBody>
+                            Please fill out this Questionnaire to get Personalised Recommendations.
+                            <form >
+                                <div className='box'>
+                                    <div className='input-group'>
+                                        <label htmlFor='Age'>
+                                            What is your Age?
+                                        </label>
+                                        <input type='text' name='Age' className='login-input' />
+                                    </div>
+                                
+                                    <div className='input-group'>
+                                        <label htmlFor='Gender'>
+                                        Enter your Gender(M/F).
+                                        </label>
+                                        <input type='text' name='Gender' className='login-input' />
+                                    </div>
+                                
+                                    <div className='input-group'>
+                                        <label htmlFor='Height'>
+                                        Enter your Height in inches.
+                                        </label>
+                                        <input type='text' name='Height' className='login-input' />
+                                    </div>
+                                
+                                <button className='login-btn'>Get Recommendations</button>
+                                </div>
+                            </form>
+                        </ModalBody>
+                        <ModalFooter>
+                            
+                        </ModalFooter>
+                    </Modal>
         </div>
         
         }
+
+
         </div>
       </div>
 

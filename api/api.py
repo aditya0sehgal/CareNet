@@ -287,9 +287,84 @@ def diaRecom():
                     'glucose': recom['glucose'] if 'glucose' in recom.keys()  else '-',
                     'bmi': recom['bmi'] if 'bmi' in recom.keys()  else '-',
                     'age': recom['age'] if 'age' in recom.keys()  else '-',
-                    
                 }   
-# There's an error here. Try importing json as import json and return- json.dumps(recom).
+
+
+
+@app.route('/hgraph-recom', methods=['POST', 'GET'])
+def hgraphRecom():
+    if request.method == 'POST':
+        alcohol = int(request.json['alcoholUse'])
+        diastolic = int(request.json['bloodPressureDiastolic'])
+        systolic = int(request.json['bloodPressureSystolic'])
+        exer = int(request.json['exercise'])
+        glucose = int(request.json['glucose'])
+        sleep = float(request.json['sleep'])
+        age = int(request.json['Age'])
+        cholesterol = float(request.json['totalCholesterol'])
+        waist = float(request.json['waistCircumference'])
+        weight = int(request.json['weight'])
+        height = int(request.json['Height'])
+        gender = str(request.json['Gender']).lower()
+        nicotine = int(request.json['nicotineUse'])
+        rec={}
+
+        if cholesterol > 0.75:
+            rec['cholestrol'] = "Total cholesterol has the highest weightage. Eat a low-salt diet that emphasizes fruits, vegetables and whole grains. Limit the amount of animal fats and use good fats in moderation and Manage stress."
+        
+        if 61 <= glucose <=120:
+            rec['glucose'] = "Glucose level is well within the nominal range. Maintain this by avoiding food items containing sugar excessively."
+        elif glucose>120:
+            rec['glucose'] = "Glucose level indicates the chances of being Pre-diabetic or Diabetic. Choose foods low in fat and calories and high in fiber. Eat a variety of foods to help you achieve your goals without compromising taste or nutrition. To get a better understanding, take our Diabetes test."
+
+        if diastolic < 65:
+            
+            rec['bp'] = "Use more salt. Experts usually recommend limiting salt in your diet because sodium can raise blood pressure, sometimes dramatically. For people with low blood pressure, that can be a good thing. Fluids increase blood volume and help prevent dehydration, both of which are important in treating hypotension."
+        elif diastolic > 95:
+            rec['bp'] = "Eating a healthy diet, Decreasing the amount of salt in your diet and Losing weight if you're overweight or obese are some of recommendations to be followed."
+
+
+        if alcohol > 1:
+            rec['alcohol'] = "High alcohol consumption has a lot of detrimental effects. Alcohol interferes with the brain’s communication pathways, and can affect the way the brain looks and works.It may also cause heart problems like Cardiomyopathy, Arrhythmias,Stroke and High blood pressure and may also cause liver inflammation. Thus, limiting alcohol consumption is an essential for the betterment of your health."
+
+        if nicotine > 1:
+            rec['nicotine'] = "When a person inhales cigarette smoke, the nicotine in the smoke is rapidly absorbed into the blood and starts affecting the brain within 10 seconds. Once there, nicotine triggers a number of chemical reactions that create temporary feelings of pleasure and concentration. Thus, use of nicotine should be eschewed. Keep your mouth busy with gum, hard candy, and crunchy (healthy) food. Use nicotine replacement therapy, like gum, lozenges, or the patch."
+
+        
+        if 3 > exer:
+            rec['exercise'] = "Exercise strengthens your heart and improves your circulation. The increased blood flow raises the oxygen levels in your body. This helps lower your risk of heart diseases such as high cholesterol, coronary artery disease, and heart attack. Regular exercise can also lower your blood pressure and triglyceride levels. Thus, for a healthy person on weekly basis, the time devoted for exercise should range from 3-12hrs."
+
+        if sleep < 7:
+            rec['sleep'] = "Exercise strengthens your heart and improves your circulation. The increased blood flow raises the oxygen levels in your body. This helps lower your risk of heart diseases such as high cholesterol, coronary artery disease, and heart attack. Regular exercise can also lower your blood pressure and triglyceride levels. Thus, for a healthy person on weekly basis, the time devoted for exercise should range from 3-12hrs."
+
+        if waist > 34.5 :
+            rec['waist'] = "Elevated waist circumference or waistline measurement is an indication of abdominal obesity and increased risk for heart disease, diabetes, high blood pressure, dyslipidemia (elevation of blood cholesterol, triglycerides or both) and nonalcoholic fatty liver disease. Eating more protein and fiber, Reducing added sugar intake,Getting more sleep, Reducing stress and drinking more water are some of the ways to reduce waist circumference."
+        elif waist < 30.0:
+            rec['waist'] = "Your Waist Circumference is on a lower side. Maintaining a balanced diet with all the essential nutrients and physical activity is neccessary."
+
+        BMI = (weight/(height)**2) *703
+
+        if 18.5<= BMI <= 24.9:
+            rec['bmi'] = "BMI value is reasonably normal. Maintain it by indulging in physical activity regularly."
+        elif 25.0 <= BMI <= 29.9:
+            rec['bmi'] = "BMI value indicates you are overweight. Cut down on the intake of food having high levels of fats and calories."
+        elif BMI >= 30.0:
+            rec['bmi'] = "BMI value is abnormally high and indicates obesity. Eat healthy snacks and a healthy, balanced meal that's low in fat and calories and limit the amount of a particular food group, such as high-carbohydrate or full-fat foods. Keep a track of your weight."
+        elif BMI < 18.5:
+            rec['bmi'] = "BMI value falls in the underweight category. Thus, nutrient rich food is a must for you.You may also include moderately calorie-rich food items in your diet."
+
+        return {
+            'cholesterol': rec['cholesterol'] if 'cholesterol' in rec.keys() else '-',  
+            'exercise': rec['exercise'] if 'exercise' in rec.keys()  else '-',
+            'bp': rec['bp'] if 'bp' in rec.keys()  else '-',
+            'sleep': rec['sleep'] if 'sleep' in rec.keys()  else '-',
+            'glucose': rec['glucose'] if 'glucose' in rec.keys()  else '-',
+            'bmi': rec['bmi'] if 'bmi' in rec.keys()  else '-',
+            'alochol': rec['alcohol'] if 'alcohol' in rec.keys()  else '-',
+            'nicotine': rec['nicotine'] if 'nicotine' in rec.keys()  else '-',
+            'waist': rec['waist'] if 'waist' in rec.keys()  else '-',
+        }  
+
 
 
 @app.route('/healthscore', methods=['POST'])
