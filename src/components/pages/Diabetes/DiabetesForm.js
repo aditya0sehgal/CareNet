@@ -251,7 +251,7 @@ export class DiabetesForm extends Component {
                             </form>
                         </ModalBody>
                         <ModalFooter>
-                            
+                        Note: These are some suggestions given based only on the Input parameters that you provide. It is always advisable to see a Doctor for better medication and health check-up.    
                         </ModalFooter>
                     </Modal>
                 </div> 

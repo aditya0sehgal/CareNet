@@ -26,7 +26,7 @@ function Home() {
                 <div>
                 <Dashboard {...homeObjOne}/>   
                 <Dashboard {...homeObjTwo}/>
-                <Dashboard {...homeObjFour}/>
+                {/* <Dashboard {...homeObjFour}/> */}
                 </div>
             )   
     }
@@ -37,7 +37,7 @@ function Home() {
                 <hr style={{color:'black'}}></hr>
                 <Dashboard {...homeObjOne}/>   
                 <Dashboard {...homeObjTwo}/>
-                <Dashboard {...homeObjFour}/>
+                {/* <Dashboard {...homeObjFour}/> */}
             </div>
         )
     }

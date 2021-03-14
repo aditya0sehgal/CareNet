@@ -1,5 +1,6 @@
 import React from 'react'
-import '../../pages/Register/style.css'
+import '../../pages/Register/style.css';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 
 
 class Pneumonia extends React.Component {
@@ -12,9 +13,13 @@ class Pneumonia extends React.Component {
       submitted : false,
       result : ''
     };
-
+    this.toggle = this.toggle.bind(this);
     this.handleUploadImage = this.handleUploadImage.bind(this);
     this.handleChange = this.handleChange.bind(this)
+  }
+
+  toggle() {
+    this.setState({ modal: !this.state.modal });
   }
 
   handleUploadImage(ev) {
@@ -68,8 +73,36 @@ class Pneumonia extends React.Component {
             {this.state.submitted === true &&
                 <h4 class='mt-3' style={{color:'blue'}}>
                   You {this.state.result==='Pneumonia'? 'Have Pneumonia': 'Don\'t Have Pneumonia'}
+              <br></br>
+              { this.state.result ==='Pneumonia'? 
+                 <button className='login-btn' style={{marginBottom:'2%'}} onClick={this.toggle}>Get Recommendations</button>
+                 : ''
+               }
                 </h4>
+                
+                
             }
+             
+            
+              <Modal isOpen={this.state.modal} modalTransition={{ timeout: 300 }} backdropTransition={{ timeout: 700 }}
+                        toggle={this.toggle}>
+                        <ModalHeader toggle={this.toggle}>Some Precautions to be taken:</ModalHeader>
+                        <ModalBody>
+                        <ul>
+                          <li>Avoid smoking.</li>
+                          <li>Wash your hands often in warm, soapy water.</li>
+                          <li>Use an alcohol-based hand sanitizer when you can’t wash your hands.</li>
+                          <li>Get enough rest.</li>
+                          <li>Eat a healthy diet that includes lots of fruits, vegetables, fiber, and lean protein.</li>
+                          <li>Make sure to get enough rest while recovering from a cold or other illness.</li>
+                          <li>Drink lots of fluid to help eliminate congestion.</li>
+                          <li>Take supplements, such as Vitamin C and Zinc, to help bolster your immune system.</li>
+                        </ul>
+                          </ModalBody>
+                        <ModalFooter>
+                        Note: These are some suggestions given based only on the Input parameters that you provide. It is always advisable to see a Doctor for better medication and health check-up. 
+                        </ModalFooter>
+                        </Modal>
       </div>
     </div>
     );
