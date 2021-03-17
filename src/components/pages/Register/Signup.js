@@ -62,7 +62,7 @@ class Signup extends Component {
                             <label htmlFor='mobile'>
                                     Mobile No.
                             </label>
-                            <input type='number' id='mobile' name='mobile' className='login-input' />
+                            <input type='text' id='mobile' name='mobile' className='login-input' />
                         </div>
                         <div className='input-group'>
                             <label htmlFor='password'>

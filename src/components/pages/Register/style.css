@@ -14,7 +14,8 @@
     /* justify-content: center; */
     align-items: center;
     flex-direction: column;
-    background-image:url("../Diabetes/diaimg");
+    /* background-image:url("../Diabetes/diaimg"); */
+    background-color: #9c9ce7;
     background-repeat: no-repeat;
     background-size: cover;
     

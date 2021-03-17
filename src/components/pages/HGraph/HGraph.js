@@ -92,7 +92,7 @@ class Hgraph extends React.Component {
                 'Recommendations for you : \n'+
                 Object.keys(this.state.recom).map((key, i) => (
                 this.state.recom[key] !== '-' ?
-                (' => '+this.state.recom[key]+'\n \n' ): ''
+                (' '+this.state.recom[key]+'\n \n' ): ''
                 // )
                 ))
                 )

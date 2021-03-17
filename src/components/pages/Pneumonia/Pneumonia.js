@@ -50,7 +50,7 @@ class Pneumonia extends React.Component {
 
   render() {
     return (
-    <div className='root-container' style={{height:'150vh' , backgroundImage:"url('healthgraph.jpg')"}} >
+    <div className='root-container' style={{height:'150vh' , backgroundColor: '#9c9ce7'}} >
         <div className='header' style={{'color': 'white'}} >
           Pneumonia Predictor
         </div>    

@@ -94,8 +94,8 @@ export class DiabetesForm extends Component {
                         label: 'Prediction %',
                         data: [Math.ceil(body.res*100), (100-(Math.ceil(body.res*100)))],
                         backgroundColor: [
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 255, 255, 0.2)',
+                            'rgba(255, 0, 0, 0.4)',
+                            'rgba(255, 255, 255, 0.6)',
                         ],
                         borderColor: [
                             'rgba(54, 162, 235, 1)',
@@ -117,7 +117,7 @@ export class DiabetesForm extends Component {
     render() {
         return (
             <>
-            <div className='root-container' >
+            <div className='root-container' style={{height:'175.0vh'}}>
                 <div className='header'>
                 Diabetes Predictor
                 </div>    
@@ -178,24 +178,22 @@ export class DiabetesForm extends Component {
                         </div>
                     </form>
                 </div>
-            </div>
-
             { this.state.result !== '' && 
-                <div style={{maxWidth:'98.0vw', maxHeight:'70vh', width:'98.0vw', height:'70vh'}}>
-                    <Doughnut width={100} height={60} options={{ maintainAspectRatio: false }} data={this.state.graphdata} />
-                    
-                    <br></br>
-                    <h1 className='pt-3' style={{color:'blue'}}>{  Math.ceil(this.state.result.res*100) } %</h1>
+                <>
+                <h2 style={{color:'red', top: 0, left: 0, margin: 0}}> There is a {  Math.ceil(this.state.result.res*100) } % chance of you being diabetic</h2>
+                <div style={{maxWidth:'98.0vw', maxHeight:'50vh', width:'98.0vw', height:'50vh' }}>
                     
                     {/* UNCOMMENT BELOW PART LATER */}
                     
+                    <Doughnut width={100} height={60} options={{ maintainAspectRatio: false }} data={this.state.graphdata} />
+                    
                     { this.state.result.sessionuser >= 1 ? 
                         (
-                        <button className='login-btn' style={{marginBottom:'2%'}} onClick={this.toggle}>Get Recommendations</button>
+                        <button className='login-btn' onClick={this.toggle}>Get Recommendations</button>
                         ) :
                         (
                         <Link to='/signup' className='btn-link'>
-                            <button className='login-btn' style={{marginBottom:'2%'}}>Login to Get Recommendations</button>
+                            <button className='login-btn' >Login to Get Recommendations</button>
                         </Link>
                         )
                     }
@@ -255,8 +253,9 @@ export class DiabetesForm extends Component {
                         </ModalFooter>
                     </Modal>
                 </div> 
+                </>
             }
-
+            </div>
         </>               
            
         )
