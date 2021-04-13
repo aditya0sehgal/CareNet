@@ -70,7 +70,7 @@ class PersonalHome extends Component {
                 h_x_values.push([loopvar[0]+'\n'+loopvar[1]])
             });
             this.state.diabetes.forEach(element => {
-                d_y_values.push(element.prediction*100)
+                d_y_values.push(element.prediction)
                 let loopvar = element.date.split(" ")
                 d_x_values.push([loopvar[0]+'\n'+loopvar[1]])
             });
@@ -184,23 +184,23 @@ class PersonalHome extends Component {
                       <tbody>
                         <tr>
                           <td style={{color:'red'}}>{this.state.diabetes.slice(-5,)[0].date}</td>
-                          <td style={{color:'green'}}>{this.state.diabetes.slice(-5,)[0].prediction * 100}</td>
+                          <td style={{color:'green'}}>{this.state.diabetes.slice(-5,)[0].prediction}</td>
                         </tr>
                         <tr>
                           <td style={{color:'red'}}>{this.state.diabetes.slice(-5,)[1].date}</td>
-                          <td style={{color:'green'}}>{this.state.diabetes.slice(-5,)[1].prediction * 100}</td>
+                          <td style={{color:'green'}}>{this.state.diabetes.slice(-5,)[1].prediction}</td>
                         </tr>
                         <tr>
                           <td style={{color:'red'}}>{this.state.diabetes.slice(-5,)[2].date}</td>
-                          <td style={{color:'green'}}>{this.state.diabetes.slice(-5,)[2].prediction * 100}</td>
+                          <td style={{color:'green'}}>{this.state.diabetes.slice(-5,)[2].prediction}</td>
                         </tr>
                         <tr>
                           <td style={{color:'red'}}>{this.state.diabetes.slice(-5,)[3].date}</td>
-                          <td style={{color:'green'}}>{this.state.diabetes.slice(-5,)[3].prediction * 100}</td>
+                          <td style={{color:'green'}}>{this.state.diabetes.slice(-5,)[3].prediction }</td>
                         </tr>
                         <tr>
                           <td style={{color:'red'}}>{this.state.diabetes.slice(-5,)[4].date}</td>
-                          <td style={{color:'green'}}>{this.state.diabetes.slice(-5,)[4].prediction * 100}</td>
+                          <td style={{color:'green'}}>{this.state.diabetes.slice(-5,)[4].prediction }</td>
                         </tr>
                         
                       </tbody>

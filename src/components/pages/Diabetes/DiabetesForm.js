@@ -117,12 +117,12 @@ export class DiabetesForm extends Component {
     render() {
         return (
             <>
-            <div className='root-container' style={{height:'175.0vh'}}>
+            <div className='root-container' style={{height:'190.0vh'}}>
                 <div className='header'>
                 Diabetes Predictor
                 </div>    
                 <div className='box-container' >
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.handleSubmit} autocomplete="off">
                         <div className='box'>
                         
                         <div className='input-group'>
@@ -215,7 +215,7 @@ export class DiabetesForm extends Component {
                         <ModalHeader toggle={this.toggle}>Questionnaire</ModalHeader>
                         <ModalBody>
                             Please fill out this Questionnaire to get Personalised Recommendations.
-                            <form onSubmit={this.handleRecomSubmit}>
+                            <form onSubmit={this.handleRecomSubmit} autocomplete="off">
                                 <div className='box'>
                                     <div className='input-group'>
                                         <label htmlFor='Smoking'>

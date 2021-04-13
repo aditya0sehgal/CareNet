@@ -11,7 +11,7 @@ import os
 import glob
 import re
 import numpy as np
-
+import math
 # Keras
 import tensorflow as tf
 from keras.applications.imagenet_utils import preprocess_input, decode_predictions
@@ -183,6 +183,7 @@ def predict():
         sampleDataFeatures = (data - means)/stds
         predictionProbability = diabetesLoadedModel.predict_proba(sampleDataFeatures)
         res=predictionProbability[0][1]
+        print("result:", int(round(res*100.0)))
         data=db.credentials
         if (len(session)>=1 and session['id']):
             print(session['user'], session['id'])
@@ -204,7 +205,7 @@ def predict():
                             "bmi":bmi,
                             "dpf":dpf,
                             "age":age,
-                            "prediction": round(res,2),
+                            "prediction": int(math.ceil(res*100.0)),
                         }
                     }
                 }

@@ -243,7 +243,7 @@ class Hgraph extends React.Component {
     // backgroundImage:"url('healthgraph.jpg')
     return (
       <div className="App">
-      <div className="root-container" style={{ height: this.state.formsubmit ? '350vh' :'150vh' }} >
+      <div className="root-container" style={{ height: this.state.formsubmit ? '370vh' :'170vh' }} >
                        
           <h1>
             Health Score 
@@ -251,7 +251,7 @@ class Hgraph extends React.Component {
           {/* <Button color="primary">hello</Button> */}
           <div className='box-container' >
             {/* <form action='/healthscore' method='POST' onSubmit={this.handleClick}> */}
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} autocomplete="off">
   
                 <div className='box'>
                   <div className='input-group'>
@@ -450,7 +450,7 @@ class Hgraph extends React.Component {
                         <ModalHeader toggle={this.toggle}>Questionnaire</ModalHeader>
                         <ModalBody>
                             Please fill out this Questionnaire to get Personalised Recommendations.
-                            <form onSubmit={this.handleRecomSubmit}>
+                            <form onSubmit={this.handleRecomSubmit} autocomplete="off">
                                 <div className='box'>
                                     <div className='input-group'>
                                         <label htmlFor='Age'>
