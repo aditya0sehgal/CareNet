@@ -78,9 +78,7 @@ class Pneumonia extends React.Component {
                  <button className='login-btn' style={{marginBottom:'2%'}} onClick={this.toggle}>Get Recommendations</button>
                  : ''
                }
-                </h4>
-                
-                
+                </h4>                
             }
              
             
@@ -98,6 +96,9 @@ class Pneumonia extends React.Component {
                           <li>Drink lots of fluid to help eliminate congestion.</li>
                           <li>Take supplements, such as Vitamin C and Zinc, to help bolster your immune system.</li>
                         </ul>
+                        <div style={{ textAlign: 'center' }}>
+                          <img src='https://i.pinimg.com/originals/d0/2a/86/d02a869cef390da6189b094ddf77d41f.jpg' ></img>
+                        </div>
                           </ModalBody>
                         <ModalFooter>
                         Note: These are some suggestions given based only on the Input parameters that you provide. It is always advisable to see a Doctor for better medication and health check-up. 

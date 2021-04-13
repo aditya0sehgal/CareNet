@@ -34,6 +34,7 @@ class Hgraph extends React.Component {
       formsubmit: false,
       datavalue:[],
       modal: false,
+      modal1: false,
       recomsubmitted : false,
       recom : {},
       logged: {}
@@ -42,12 +43,17 @@ class Hgraph extends React.Component {
       console.log(this.state.data);
       this.card = React.createRef();
       this.toggle = this.toggle.bind(this);
+      this.toggle1 = this.toggle1.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleRecomSubmit = this.handleRecomSubmit.bind(this);
     }
 
       toggle() {
       this.setState({ modal: !this.state.modal });
+     }
+
+      toggle1() {
+      this.setState({ modal1: !this.state.modal1 });
      }
 
       handleRecomSubmit(event) {
@@ -88,14 +94,14 @@ class Hgraph extends React.Component {
               console.log(this.state);
               console.log(Object.keys(this.state.recom));
             //   alert(JSON.stringify(this.state.recom))
-              alert(
-                'Recommendations for you : \n'+
-                Object.keys(this.state.recom).map((key, i) => (
-                this.state.recom[key] !== '-' ?
-                (' '+this.state.recom[key]+'\n \n' ): ''
-                // )
-                ))
-                )
+              // alert(
+              //   'Recommendations for you : \n'+
+              //   Object.keys(this.state.recom).map((key, i) => (
+              //   this.state.recom[key] !== '-' ?
+              //   (' '+this.state.recom[key]+'\n \n' ): ''
+              //   // )
+              //   ))
+              //   )
             });
           });
 
@@ -473,9 +479,26 @@ class Hgraph extends React.Component {
                                         <input type='text' name='Height' className='login-input' />
                                     </div>
                                 
-                                <button className='login-btn'>Get Recommendations</button>
+                                <button className='login-btn' onClick={this.toggle1}>Get Recommendations</button>
                                 </div>
                             </form>
+                        </ModalBody>
+                        <ModalFooter>
+                        Note: These are some suggestions given based only on the Input parameters that you provide. It is always advisable to see a Doctor for better medication and health check-up.  
+                        </ModalFooter>
+                    </Modal>
+
+                    <Modal isOpen={this.state.modal1} modalTransition={{ timeout: 300 }} backdropTransition={{ timeout: 700 }}
+                        toggle={this.toggle1}>
+                        <ModalHeader> Recommendations for you : </ModalHeader>
+                        <ModalBody>
+                        { Object.keys(this.state.recom).map((key, i) => (
+                        this.state.recom[key] !== '-' ?
+                        ( <> <br></br> =&gt; {key.toUpperCase()} : {this.state.recom[key]} </> ) : ''
+                        )) }
+                        <div style={{ textAlign: 'center' }}>
+                          <img src='https://i.pinimg.com/originals/d0/2a/86/d02a869cef390da6189b094ddf77d41f.jpg' ></img>
+                        </div>
                         </ModalBody>
                         <ModalFooter>
                         Note: These are some suggestions given based only on the Input parameters that you provide. It is always advisable to see a Doctor for better medication and health check-up.  

@@ -27,6 +27,9 @@ class PersonalHome extends Component {
             dGData : {},
             hGData: {},
             pGData: {},
+            hlen: 0,
+            dlen: 0,
+            plen: 0,
             dataishere : false
         };
 
@@ -46,7 +49,10 @@ class PersonalHome extends Component {
             this.setState({
               diabetes: json['diabetesdata'],
               dataishere : true, 
-              hgraph: json['hgraphdata'], 
+              hgraph: json['hgraphdata'],
+              hlen: json['hgraphdata'].length,
+              dlen: json['diabetesdata'].length,
+              plen: json['pneumoniadata'].length,
               pneumonia: json['pneumoniadata'], 
             })
             console.log(this.state.diabetes);
@@ -77,11 +83,11 @@ class PersonalHome extends Component {
             console.log( p_x_values , p_y_values );
             this.setState({
               pGData: {
-                labels: p_x_values.slice(-5,),
+                labels: p_x_values.length<5 ? p_x_values : p_x_values.slice(-5,),
                 datasets: [
                   {
-                    label: 'Your past 5 prediction history data',
-                    data: p_y_values.slice(-5,),
+                    label: 'Your prediction history data',
+                    data: p_y_values.length<5 ? p_y_values : p_y_values.slice(-5,),
                     fill: false,
                     backgroundColor: 'rgb( 0,0,255 )',
                     borderColor: 'rgba( 0,0,255 , 0.5)',
@@ -89,11 +95,11 @@ class PersonalHome extends Component {
                 ],
               },
               hGData: {
-                labels: h_x_values.slice(-5,),
+                labels: h_x_values.length<5 ? h_x_values : h_x_values.slice(-5,),
                 datasets: [
                   {
-                    label: 'Your past 5 prediction history data',
-                    data: h_y_values.slice(-5,),
+                    label: 'Your prediction history data',
+                    data: h_y_values.length<5 ? h_y_values : h_y_values.slice(-5,),
                     fill: false,
                     backgroundColor: 'rgb( 0,0,255 )',
                     borderColor: 'rgba( 0,0,255 , 0.5)',
@@ -101,11 +107,11 @@ class PersonalHome extends Component {
                 ],
               },
               dGData: {
-                labels: d_x_values.slice(-5,),
+                labels: d_x_values.length<5 ? d_x_values : d_x_values.slice(-5,),
                 datasets: [
                   {
-                    label: 'Your past 5 prediction history data',
-                    data: d_y_values.slice(-5,),
+                    label: 'Your prediction history data',
+                    data: d_y_values.length<5 ? d_y_values : d_y_values.slice(-5,),
                     fill: false,
                     backgroundColor: 'rgb( 0,0,255 )',
                     borderColor: 'rgba( 0,0,255 , 0.5)',
@@ -121,16 +127,21 @@ class PersonalHome extends Component {
         if(this.state.dataishere  === true){
           return (
               <div style={{width:'100vw', maxWidth:'100vw'}}>
+                { this.state.hlen > 0 ? 
+                <> 
                   <br></br>
                   <h2 className='pt-3 pb-3'>H-Graph Data</h2>                  
-                  <div style={{maxWidth:'50vw', maxHeight:'50vh', display:'flex', width:'50vw', height:'50vh'}}>
-                    <Line 
-                        data={this.state.hGData} 
-                        options={{ maintainAspectRatio: false }}
-                        width={50}
-                        height={50}
-                        style={{ float:'left'}} 
-                    />
+                  <div style={{maxHeight:'50vh', display:'flex', height:'50vh'}}>
+                    <div style={{maxWidth:'48vw',display:'flex', width:'48vw'}}>
+                      <Line 
+                          data={this.state.hGData} 
+                          options={{ maintainAspectRatio: false }}
+                          width={50}
+                          height={50}
+                          style={{ float:'left'}} 
+                      />
+                    </div>
+                    { this.state.hlen >= 5 ? 
                     <Table style={{fontWeight: 'bold', float:'right',width:'48vw', height:'50vh'}} striped hover>
                       <thead>
                         <tr>
@@ -139,6 +150,10 @@ class PersonalHome extends Component {
                         </tr>
                       </thead>
                 
+                      {/* { console.log( this.state.hgraph ) }
+                      { console.log( this.state.hGData.labels ) } */}
+                     {/* { Object.keys(githubData).map(key => ( <Issue key={key} details={githubData[key]} />)) } */}
+                      {/* { console.log( this.state.pGData.datasets.data ) } */}
                       <tbody>
                         <tr>
                           <td style={{color:'red'}}>{this.state.hgraph.slice(-5,)[0].date}</td>
@@ -163,16 +178,17 @@ class PersonalHome extends Component {
                         
                       </tbody>
 
-                    </Table>
+                    </Table> : <> </> }
                   </div>
-
-
+                </> : <> </> }
+                { this.state.dlen > 0 ? 
+                <>
                   <br></br>
                   <br></br>
                   <h2 className='pt-3 pd-3'>Diabetes Data</h2>
                   <br></br>
-                  <div style={{maxWidth:'50vw', maxHeight:'50vh',  display:'flex', width:'50vw', height:'50vh'}}>
-
+                  <div style={{ maxHeight:'50vh',  display:'flex', height:'50vh'}}>
+                  { this.state.dlen >= 5 ? 
                     <Table style={{fontWeight: 'bold', float:'left',width:'48vw', height:'50vh'}} striped hover>
                       <thead>
                         <tr>
@@ -205,28 +221,35 @@ class PersonalHome extends Component {
                         
                       </tbody>
 
-                    </Table>
-                    <Line 
-                        data={this.state.dGData} 
-                        options={{ maintainAspectRatio: false }}
-                        width={50}
-                        height={50}
-                        style={{ float:'right'}} 
-                    />
+                    </Table>  : <> </> }
+                    <div style={{maxWidth:'48vw',display:'flex', width:'48vw'}}>
+                      <Line 
+                          data={this.state.dGData} 
+                          options={{ maintainAspectRatio: false }}
+                          width={50}
+                          height={50}
+                          style={{ float:'right'}} 
+                      />
+                    </div>
                   </div>
-
+                  </> : <> </> }
                   <br></br>
+                  { this.state.plen > 0 ? 
+                  <>
                   <br></br>
                   <h2 className='pt-3 pd-3'>Pneumonia Data</h2>
                   <br></br>
-                  <div style={{maxWidth:'50vw', maxHeight:'50vh',display:'flex' , width:'50vw', height:'50vh'}}>
-                    <Line 
-                        data={this.state.pGData} 
-                        options={{ maintainAspectRatio: false }}
-                        width={50}
-                        height={50}
-                    style={{ float:'left'}} 
-                    />
+                  <div style={{ maxHeight:'50vh',display:'flex' , height:'50vh'}}>
+                    <div style={{maxWidth:'48vw',display:'flex', width:'48vw'}}>
+                      <Line 
+                          data={this.state.pGData} 
+                          options={{ maintainAspectRatio: false }}
+                          width={50}
+                          height={50}
+                          style={{ float:'left'}} 
+                      />
+                    </div>
+                    { this.state.plen >= 5 ? 
                     <Table style={{fontWeight: 'bold', float:'right',width:'48vw', height:'50vh'}} striped hover>
                       <thead>
                         <tr>
@@ -259,10 +282,9 @@ class PersonalHome extends Component {
                         
                       </tbody>
 
-                    </Table>
+                    </Table>  : <> </> }
                   </div>
-
-
+                </> : <> </> }
               </div>
           );
         }
