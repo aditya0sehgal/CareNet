@@ -342,32 +342,13 @@ class Hgraph extends React.Component {
         </h3> 
         {this.state.formsubmit === true && 
         <div>
-        <div className="card" 
-        style={{ top: this.state.historyOpen ? '80vh' : '100vh' }} 
-        ref={this.card}>
-              <div>
-                  <p>{ this.state.historyData.label }</p>
-                  <p>{ this.state.historyData.value } { this.state.historyData.unitLabel }</p>
-              </div>
-        </div>
-
-        <div className="vis-container" style={{ height: this.state.historyOpen ? '50vh' : '100vh' }}>
-          <HGraph
-            data={ this.state.data.data }
-            score={ this.state.data.score }
-            width={ size }
-            height={ size }
-            fontColor={'rgb(0, 0, 0)'}
-            scoreFontColor={'rgb(255, 255, 255)'}
-            fontSize={ size < 300 ? 16 : 19 }
-            pointRadius={ size < 300 ? 5 : 10 }
-            scoreFontSize={ size < 300 ? 50 : 120 }
-            // onPointClick={false}
-            // zoomOnPointClick={false}
-            onPointClick={this.handlePointClick}
-            zoomOnPointClick={true}
-          />
-        </div>
+{/*         
+       <br></br>
+       <br></br>
+       <br></br>
+       <br></br>
+       <br></br>
+       <br></br> */}
        <br></br>
        <br></br>
         <Table style={{fontWeight: 'bold'}} bordered>
@@ -451,6 +432,38 @@ class Hgraph extends React.Component {
                   </Link>
                   )
               }
+
+              <br></br>
+              <br></br>
+              <br></br>
+
+              <div className="card" 
+              style={{ top: this.state.historyOpen ? '80vh' : '100vh' }} 
+              ref={this.card}>
+                    <div>
+                        <p>{ this.state.historyData.label }</p>
+                        <p>{ this.state.historyData.value } { this.state.historyData.unitLabel }</p>
+                    </div>
+              </div>
+
+              <div className="vis-container" style={{ height: this.state.historyOpen ? '50vh' : '100vh' }}>
+                <HGraph
+                  data={ this.state.data.data }
+                  score={ this.state.data.score }
+                  width={ size }
+                  height={ size }
+                  fontColor={'rgb(0, 0, 0)'}
+                  scoreFontColor={'rgb(255, 255, 255)'}
+                  fontSize={ size < 300 ? 16 : 19 }
+                  pointRadius={ size < 300 ? 5 : 10 }
+                  scoreFontSize={ size < 300 ? 50 : 120 }
+                  // onPointClick={false}
+                  // zoomOnPointClick={false}
+                  onPointClick={this.handlePointClick}
+                  zoomOnPointClick={true}
+                />
+              </div>
+
               <Modal isOpen={this.state.modal} modalTransition={{ timeout: 300 }} backdropTransition={{ timeout: 700 }}
                         toggle={this.toggle}>
                         <ModalHeader toggle={this.toggle}>Questionnaire</ModalHeader>
