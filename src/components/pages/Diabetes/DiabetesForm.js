@@ -269,9 +269,9 @@ export class DiabetesForm extends Component {
                         this.state.recom[key] !== '-' ?
                         ( <> <br></br> =&gt; {key.toUpperCase()} : {this.state.recom[key]} </> ) : ''
                         )) }
-                        {/* <div style={{ textAlign: 'center' }}>
-                          <img src='https://i.pinimg.com/originals/d0/2a/86/d02a869cef390da6189b094ddf77d41f.jpg' ></img>
-                        </div> */}
+                        <div style={{ textAlign: 'center' }}>
+                          <img src='https://www.patiadiabetes.com/wp-content/uploads/2016/01/howtoprevent-1.png' ></img>
+                        </div>
                         </ModalBody>
                         <ModalFooter>
                         Note: These are some suggestions given based only on the Input parameters that you provide. It is always advisable to see a Doctor for better medication and health check-up.  

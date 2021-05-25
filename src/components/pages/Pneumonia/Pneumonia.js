@@ -50,8 +50,8 @@ class Pneumonia extends React.Component {
 
   render() {
     return (
-    <div className='root-container' style={{height:'150vh' , backgroundColor: '#9c9ce7'}} >
-        <div className='header' style={{'color': 'white'}} >
+    <div className='root-container' style={{height:'150vh' , backgroundColor: 'rgb(156,226,250)'}} >
+        <div className='header' style={{'color': 'black'}} >
           Pneumonia Predictor
         </div>    
         <div className='box-container' >
@@ -97,7 +97,8 @@ class Pneumonia extends React.Component {
                           <li>Take supplements, such as Vitamin C and Zinc, to help bolster your immune system.</li>
                         </ul>
                         <div style={{ textAlign: 'center' }}>
-                          <img src='https://i.pinimg.com/originals/d0/2a/86/d02a869cef390da6189b094ddf77d41f.jpg' ></img>
+                          {/* <img src='https://i.pinimg.com/originals/d0/2a/86/d02a869cef390da6189b094ddf77d41f.jpg' ></img> */}
+                          <img src='https://st.depositphotos.com/1855119/4578/v/950/depositphotos_45784463-stock-illustration-smoking-kills-sign-rectangle-sign.jpg' ></img>
                         </div>
                           </ModalBody>
                         <ModalFooter>

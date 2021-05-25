@@ -2,8 +2,6 @@
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-   
-    
 }
 
 
@@ -15,7 +13,7 @@
     align-items: center;
     flex-direction: column;
     /* background-image:url("../Diabetes/diaimg"); */
-    background-color: #9c9ce7;
+    background-color: rgb(156,226,250);
     background-repeat: no-repeat;
     background-size: cover;
     

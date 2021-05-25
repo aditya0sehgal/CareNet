@@ -509,8 +509,11 @@ class Hgraph extends React.Component {
                         this.state.recom[key] !== '-' ?
                         ( <> <br></br> =&gt; {key.toUpperCase()} : {this.state.recom[key]} </> ) : ''
                         )) }
-                        <div style={{ textAlign: 'center' }}>
-                          <img src='https://i.pinimg.com/originals/d0/2a/86/d02a869cef390da6189b094ddf77d41f.jpg' ></img>
+                        <div 
+                        style={{ textAlign: 'center' }}
+                        >
+                          {/* <img src='https://i.pinimg.com/originals/d0/2a/86/d02a869cef390da6189b094ddf77d41f.jpg' ></img> */}
+                          <img width='500' height='300' src='https://www.who.int/images/default-source/infographics/health-promotion/infographic-health-promotion-12-tips.jpg?sfvrsn=86e14010_2' ></img>
                         </div>
                         </ModalBody>
                         <ModalFooter>
