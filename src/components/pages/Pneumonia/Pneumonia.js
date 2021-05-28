@@ -57,7 +57,7 @@ class Pneumonia extends React.Component {
         <div className='box-container' >
             <form onSubmit={this.handleUploadImage}>
                 <div>
-                  <input ref={(ref) => { this.uploadInput = ref; }} onChange={ this.handleChange } type="file" />
+                  <input accept="image/*" ref={(ref) => { this.uploadInput = ref; }} onChange={ this.handleChange } type="file" />
                 </div>
                 <br />
                 <img 

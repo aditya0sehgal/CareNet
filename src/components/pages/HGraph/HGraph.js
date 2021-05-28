@@ -166,7 +166,52 @@ class Hgraph extends React.Component {
     console.log( JSON.stringify(value) );  // View entered values from the form.
     console.log( value );  // View entered values from the form.
     this.setState({datavalue: value})
+    
     // To generate a json file having data from the form to use on the HGraph component.
+    console.log((parseFloat(value.totalCholesterol))>1);
+    console.log(value.bloodPressureSystolic>1);
+    console.log((parseFloat(value.bloodPressureSystolic))>1);
+    if( (parseFloat(value.totalCholesterol) < 0) || (parseFloat(value.totalCholesterol)>1)){
+      alert("Total Cholesterol should be between 0 and 1");
+      return;
+    }
+    if(parseInt(value.bloodPressureSystolic)<50 || parseInt(value.bloodPressureSystolic)>230){
+      alert("Systolic Blood Pressure should be between 50 and 230");
+      return;
+    }
+    if(value.bloodPressureDiastolic<35 || value.bloodPressureDiastolic>140){
+      alert("Diastolic Blood Pressure should be between 35 and 140");
+      return;
+    }
+    if(value.alcoholUse<0 || value.alcoholUse>20){
+      alert("Alcohol Use should be between 0 and 20");
+      return;
+    }
+    if(value.nicotineUse<0 || value.nicotineUse>20){
+      alert("Nicotine Use should be between 0 and 20");
+      return;
+    }
+    if(value.waistCircumference<0 || value.waistCircumference>200){
+      alert("Waist Circumference should be between 0 and 200");
+      return;
+    }
+    if(value.weight<50 || value.weight>500){
+      alert("Weight should be between 50 and 500");
+      return;
+    }
+    if(value.exercise<0 || value.exercise>60){
+      alert("Exercise should be between 0 and 60");
+      return;
+    }
+    if(value.sleep<0 || value.sleep>18){
+      alert("Sleep should be between 0 and 18");
+      return;
+    }
+    if(value.glucose<0 || value.glucose>160){
+      alert("Glucose should be between 0 and 160");
+      return;
+    }  
+  else{
     let healthdataarray = []
     for (var key in value) {
     if (value.hasOwnProperty(key)) {
@@ -216,29 +261,27 @@ class Hgraph extends React.Component {
       historyData: yearData[0].data[0],
       formsubmit: true
     })
-
-    // this.setState({formsubmit: true}) 
     console.log(this.state);
-
-    // Send the health graph form data to the server.
-    fetch('/healthscore', {
-      method: 'POST', // or 'PUT'
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(value),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data);
-      this.setState({
-        logged : data
+    // this.setState({formsubmit: true}) 
+      // Send the health graph form data to the server.
+      fetch('/healthscore', {
+        method: 'POST', // or 'PUT'
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(value),
       })
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+        this.setState({
+          logged : data
+        })
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    }
   }
 
   render() {
@@ -342,16 +385,9 @@ class Hgraph extends React.Component {
         </h3> 
         {this.state.formsubmit === true && 
         <div>
-{/*         
        <br></br>
        <br></br>
-       <br></br>
-       <br></br>
-       <br></br>
-       <br></br> */}
-       <br></br>
-       <br></br>
-        <Table style={{fontWeight: 'bold'}} bordered>
+        <Table style={{fontWeight: 'bold', backgroundColor:'whitesmoke'}} border hover>
                 <thead>
                   <tr>
                     <th>Parameter</th>
