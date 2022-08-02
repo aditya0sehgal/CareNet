@@ -42,7 +42,7 @@ filename = 'diabetesModel.pkl'
 diabetesLoadedModel, means, stds = joblib.load('diabetesModel.pkl')
 
 
-app = Flask(__name__)
+app = Flask(__name__,static_folder='./build', static_url_path='/home') #change
 app.config['UPLOAD_FOLDER'] = '/uploads'
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 CORS(app, expose_headers='Authorization')
@@ -61,6 +61,10 @@ def model_predict(img_path, model):
     img = np.expand_dims(img, axis=0)
     preds = model.predict(img)
     return preds
+
+@app.route('/home') #change
+def index():
+    return app.send_static_file('index.html')
   
 @app.route('/pneumonia-predict', methods=['POST','GET'])
 def fileUpload():
@@ -182,6 +186,7 @@ def predict():
         
         sampleDataFeatures = (data - means)/stds
         predictionProbability = diabetesLoadedModel.predict_proba(sampleDataFeatures)
+        print(predictionProbability)
         res=predictionProbability[0][1]
         print("result:", int(round(res*100.0)))
         data=db.credentials
@@ -471,7 +476,10 @@ def before_request():
     if 'user' in session:
         g.user=session['user']
 
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file('index.html') #change
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80)) #change
